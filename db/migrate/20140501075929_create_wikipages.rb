@@ -1,25 +1,7 @@
 class CreateWikipages < ActiveRecord::Migration
   def change
     create_table :wikipages do |t|
-      # itemtype_path = ndb.StringProperty()
-      # title = ndb.StringProperty()
-      # body = ndb.TextProperty()
-      # description = ndb.StringProperty()
-      # revision = ndb.IntegerProperty()
-      # comment = ndb.StringProperty()
-      # modifier = ndb.UserProperty()
-      # acl_read = ndb.StringProperty()
-      # acl_write = ndb.StringProperty()
-      # inlinks = ndb.JsonProperty()
-      # outlinks = ndb.JsonProperty()
-      # related_links = ndb.JsonProperty()
-      # updated_at = ndb.DateTimeProperty()
-      #
-      # published_at = ndb.DateTimeProperty()
-      # published_to = ndb.StringProperty()
-      # older_title = ndb.StringProperty()
-      # newer_title = ndb.StringProperty()
-      t.string :itemtype
+      t.string :itemtype # according to schema.org
       t.string :title
       t.string :body
       t.string :description
@@ -27,6 +9,13 @@ class CreateWikipages < ActiveRecord::Migration
       t.string :comment
       t.integer :user_id
       t.integer :modifier
+      t.string :acl_read
+      t.string :acl_write
+      t.integer :link_id # related with (in links, out links, related links)
+      t.datetime :published_at
+      t.string :published_to
+      t.string :older_title
+      t.string :newer_title
       t.timestamps
     end
   end

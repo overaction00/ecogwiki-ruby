@@ -1,8 +1,10 @@
 EcogwikiRuby::Application.routes.draw do
 
   devise_for :users
+  match '/sp.changes', to: 'home#index'
+  get '*wikipage', to: 'home#show'
 
-  root :to => 'home#index'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -40,8 +40,15 @@ ActiveRecord::Schema.define(:version => 20140501075929) do
     t.string   "comment"
     t.integer  "user_id"
     t.integer  "modifier"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.string   "acl_read"
+    t.string   "acl_write"
+    t.integer  "link_id"
+    t.datetime "published_at"
+    t.string   "published_to"
+    t.string   "older_title"
+    t.string   "newer_title"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
 end
