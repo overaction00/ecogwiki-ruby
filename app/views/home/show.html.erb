@@ -32,7 +32,11 @@
 </article>
 <section class="body">
     <!-- if redirected from -->
-    <!-- if is old revision page -->
+    <% unless @revision.nil? %>
+    <div class="infobox message">
+        <p>You are seeing an old version of the page. Go to <a href="<%= absolute_path(@revision) %>">latest version</a></p>
+    </div>
+    <% end %>
     <% if @wikipage.nil? || @wikipage.body.blank? %>
     <p>This page is empty.</p>
     <% else %>

@@ -1,5 +1,11 @@
 require 'redcarpet'
 
+class String
+  def numeric?
+    Float(self) != nil rescue false
+  end
+end
+
 class HomeController < ApplicationController
   def index
   end
@@ -7,9 +13,19 @@ class HomeController < ApplicationController
   def page_handler
     # [] = generalize_url
     @wikipage = Wikipage.find_by_title(params[:wikipage])
-    # page = last index []
     if params[:view] == 'edit'
       return render 'home/update'
+    elsif params[:rev] == 'list'
+      @revisions = @wikipage.nil? ? nil : @wikipage.old_wikipages
+      return render '/home/show_rev'
+    elsif !params[:rev].nil? && params[:rev].numeric?
+      return redirect_to '/' + params[:wikipage] if @wikipage.nil?
+
+      if @wikipage.revision < params[:rev].to_i
+        return redirect_to '/' + params[:wikipage] + '?rev=' + @wikipage.revision.to_s
+      end
+
+      @revision = @wikipage.old_wikipages.where(revision: params[:rev].to_i).first
     end
 
     render 'home/show'
@@ -63,4 +79,5 @@ class HomeController < ApplicationController
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, options)
     render text: markdown.render(text).html_safe, status: :ok
   end
+
 end

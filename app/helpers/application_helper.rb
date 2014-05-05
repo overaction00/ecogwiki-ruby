@@ -10,4 +10,8 @@ module ApplicationHelper
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, options)
     markdown.render(text).html_safe
   end
+
+  def absolute_path(page)
+    page.title + '?rev=' + page.wikipage.revision.to_s
+  end
 end

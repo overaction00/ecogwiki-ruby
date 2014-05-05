@@ -4,6 +4,8 @@ class Wikipage < ActiveRecord::Base
 
   has_many :old_wikipages
 
+  belongs_to :user
+
   def fill_in_default(user)
     self.newer_title = self.title
     self.modifier = self.user_id
@@ -12,7 +14,14 @@ class Wikipage < ActiveRecord::Base
   end
 
   def update_body(body)
-    self.old_wikipages.new
+    old_wikipage = self.old_wikipages.new
+    old_wikipage.title = self.title
+    old_wikipage.body = self.body
+    old_wikipage.revision = self.revision
+    old_wikipage.user_id = self.user_id
+    old_wikipage.published_at = self.published_at
+    old_wikipage.published_to = self.published_to
+    old_wikipage.save
     self.body = body
     self.revision += 1
   end
