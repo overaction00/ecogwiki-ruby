@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140505103653) do
+ActiveRecord::Schema.define(:version => 20140505131828) do
+
+  create_table "old_wikipages", :force => true do |t|
+    t.string   "title"
+    t.string   "body"
+    t.integer  "revision"
+    t.integer  "user_id"
+    t.datetime "published_at"
+    t.string   "published_to"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
