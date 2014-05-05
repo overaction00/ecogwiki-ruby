@@ -1,7 +1,19 @@
 <component name="ProjectDictionaryState">
   <dictionary name="worms">
     <words>
+      <w>autofocus</w>
+      <w>autolink</w>
+      <w>browsehappy</w>
+      <w>codemirror</w>
       <w>ecogwiki</w>
+      <w>editform</w>
+      <w>endif</w>
+      <w>intra</w>
+      <w>redcarpet</w>
+      <w>searchbox</w>
+      <w>vcaret</w>
+      <w>wikipage</w>
+      <w>wikipages</w>
     </words>
   </dictionary>
 </component>

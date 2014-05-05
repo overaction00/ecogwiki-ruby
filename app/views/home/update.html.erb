@@ -1,1 +1,23 @@
-<h1>edit</h1>
+<%= stylesheet_link_tag 'codemirror/codemirror', :media => 'all' %>
+<%= javascript_include_tag 'codemirror/codemirror' %>
+<%= javascript_include_tag 'codemirror/markdown' %>
+<%= form_tag(params[:wikipage], method: 'post', class: 'editform') do %>
+  <input type="hidden" name="revision" value="{{ page.revision }}">
+  <input type="hidden" name="preview" value="0">
+
+  <textarea name="body" placeholder="Body" autofocus="autofocus"><% unless @wikipage.nil? %><%= @wikipage.body %><% end %></textarea>
+
+  <input name="comment" placeholder="Comment" class="comment" value="">
+  <div class="actions">
+    <input type="submit" value="Save" class="btn btn-primary btn-save">
+    <input type="button" value="Preview" class="btn btn-preview">
+    <input type="button" value="Delete" class="btn btn-delete">
+  </div>
+<% end %>
+<script>
+    var textArea = document.querySelector('.editform textarea');
+    CodeMirror.fromTextArea(textArea, {
+        lineNumbers: true,
+        mode: "markdown"
+    });
+</script>

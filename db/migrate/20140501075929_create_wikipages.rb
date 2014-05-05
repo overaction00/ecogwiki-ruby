@@ -6,7 +6,7 @@ class CreateWikipages < ActiveRecord::Migration
       t.string :body
       t.string :description
       t.integer :revision
-      t.string :comment
+      t.string :comment_id
       t.integer :user_id
       t.integer :modifier
       t.string :acl_read

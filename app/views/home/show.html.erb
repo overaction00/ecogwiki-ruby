@@ -1,20 +1,43 @@
 <article>
-  <header>
+    <header>
     <h1>
-      <!-- Home Posts Changes                 about -->
-      <!-- Posts if exists > Subject & caret target -->
-      <!-- Find similar titles -->
+        <% titles = params[:wikipage].split(/\//); titles[0..-2].each_with_index do | item, index | %>
+            <span class="parent">
+                <a href="<%= '/' + titles[0..index].join('/') %>"><%= titles[index] %></a>
+            </span>
+        <% end %>
+        <span><%= titles[-1] %></span>
+        <a id="top" href="#top" class="caret-target vcaret">#</a>
+        <br>
+        <% unless @wikipage.nil? %>
+            <a href="/sp.search?q=<%= @wikipage.title %>" class="search-by-title">Find similar titles</a>
+        <% end %>
     </h1>
-    <!-- divider -->
-    <ul>
-      <li><!-- $revision timestamp, rev. $revision_count --></li>
-      <li><!-- $author --></li>
+    <ul class="info">
+        <li class="updated_at">
+        <% unless @wikipage.nil? %>
+        <a href="<%= '/' + @wikipage.title + '?rev=list' %>">
+            <time><%= @wikipage.updated_at %></time>
+        </a>
+        <% end %>
+        (rev. <span class="revision"><%= @wikipage.nil? ? 0 : @wikipage.revision %></span>)
+        </li>
+        <% if !@wikipage.nil? && @wikipage.can_write?(current_user) %>
+            <li class="edit_menu">
+                <a href="<%= params[:wikipage] %>?view=edit" id="edit" class='btn btn-primary'>Edit</a>
+            </li>
+        <% end %>
     </ul>
-      <!-- $text area -->
-  </header>
+    </header>
 </article>
 <section class="body">
-  <!-- if redirected from -->
-  <!-- if is old revision page -->
+    <!-- if redirected from -->
+    <!-- if is old revision page -->
+    <% if @wikipage.nil? || @wikipage.body.blank? %>
+    <p>This page is empty.</p>
+    <% else %>
+      <div class="content"><%= markdown_to_html(@wikipage.body) %></div>
+    <% end %>
+
 </section>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>

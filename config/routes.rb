@@ -2,8 +2,12 @@ EcogwikiRuby::Application.routes.draw do
 
   devise_for :users
   match '/sp.changes', to: 'home#index'
-  get '*wikipage', to: 'home#show'
-
+  match '/sp.markdown', to: 'home#markdown'
+  get '*wikipage', to: 'home#page_handler'
+  post '*wikipage', to: 'home#write_handler'
+  put '*wikipage', to: 'home#update_handler'
+  delete '*wikipage', to: 'home#remove_handler'
+  root :to => 'home#root_handler'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
