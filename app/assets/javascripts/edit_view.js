@@ -2,7 +2,7 @@ $(function() {
     $("form .actions .btn-preview").click(function(e) {
         e.stopPropagation();
         e.preventDefault();
-
+        $("wikibody_preview")
     });
 
     $("form .actions .btn-delete").click(function(e) {

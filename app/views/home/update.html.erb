@@ -1,6 +1,18 @@
 <%= stylesheet_link_tag 'codemirror/codemirror', :media => 'all' %>
 <%= javascript_include_tag 'codemirror/codemirror' %>
 <%= javascript_include_tag 'codemirror/markdown' %>
+<header>
+<h1>
+    <% titles = params[:wikipage].split(/\//); titles[0..-2].each_with_index do | item, index | %>
+        <span class="parent">
+            <a href="<%= '/' + titles[0..index].join('/') %>"><%= titles[index] %></a>
+        </span>
+    <% end %>
+    <span><%= titles[-1] %></span>
+</h1>
+</header>
+<article id="wikibody_preview"><div class="body"></div></article>
+
 <%= form_tag(params[:wikipage], method: 'post', class: 'editform') do %>
   <input type="hidden" name="revision" value="{{ page.revision }}">
   <input type="hidden" name="preview" value="0">

@@ -29,11 +29,6 @@ class HomeController < ApplicationController
     end
 
     render 'home/show'
-    # view=edit render view
-    # render edit page if page exist
-
-    # show
-    # else render empty page
   end
 
   def write_handler
