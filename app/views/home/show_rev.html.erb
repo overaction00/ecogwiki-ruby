@@ -1,0 +1,22 @@
+<header>
+    <h1>Revision History of <%= @wikipage.title %></h1>
+</header>
+<table class="pagelist revisions">
+    <thead><tr>
+        <th class="modified">Modified</th>
+        <th class="comment">Comment</th>
+    </tr></thead>
+    <tbody>
+    <% if @revisions.nil? %>
+    <tr><td colspan="2">(no revisions)</td></tr>
+    <% end %>
+
+    <% @revisions.each do |revision| %>
+    <tr class="page">
+        <td class="modified"><time datetime="<%= revision.created_at %>"><%= revision.created_at %></time></td>
+        <td><span class="modifier"><%= revision.wikipage.user.email %></span></td>
+        <td>(<a href="<%= @wikipage.title %>?rev=<%= revision.revision %>">rev. <%= revision.revision %></a>)</td>
+  </tr>
+    <% end %>
+  </tbody>
+</table>
