@@ -1,7 +1,6 @@
 class Wikipage < ActiveRecord::Base
-  attr_accessible :title, :body, :itemtype, :description, :revision, :user_id,
-                  :modifier, :comment, :acl_read, :acl_write, :link_id,
-                  :published_at, :published_to
+  attr_accessible :title, :body, :revision, :user_id,
+                  :modifier, :comment, :acl_read, :acl_write, :link_id
 
   has_many :old_wikipages
 
@@ -9,22 +8,24 @@ class Wikipage < ActiveRecord::Base
 
   def fill_in_default(user)
     unless user.nil?
-      self.modifier = user.id
-      self.user_id = self.modifier
+      self.user_id = user.id
+      self.modifier = user.email
     end
     self.revision = 0
   end
 
-  def update_body(body)
+  def update_wikipage(params, user)
     old_wikipage = self.old_wikipages.new
     old_wikipage.title = self.title
     old_wikipage.body = self.body
     old_wikipage.revision = self.revision
     old_wikipage.user_id = self.user_id
-    old_wikipage.published_at = self.published_at
-    old_wikipage.published_to = self.published_to
+    old_wikipage.modifier = self.modifier
+    old_wikipage.comment = self.comment
     old_wikipage.save
-    self.body = body
+    self.body = params[:body] unless self.body == params[:body]
+    self.comment = params[:comment] unless self.comment == params[:body]
+    self.modifier = user.email
     self.revision += 1
   end
 

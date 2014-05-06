@@ -11,18 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140506072632) do
+ActiveRecord::Schema.define(:version => 20140505131828) do
 
   create_table "old_wikipages", :force => true do |t|
     t.string   "title"
     t.string   "body"
     t.integer  "revision"
     t.integer  "user_id"
-    t.datetime "published_at"
-    t.string   "published_to"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.string   "comment"
     t.integer  "wikipage_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -44,21 +43,17 @@ ActiveRecord::Schema.define(:version => 20140506072632) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "wikipages", :force => true do |t|
-    t.string   "itemtype"
     t.string   "title"
     t.string   "body"
-    t.string   "description"
     t.integer  "revision"
     t.string   "comment"
     t.integer  "user_id"
-    t.integer  "modifier"
+    t.string   "modifier"
     t.string   "acl_read"
     t.string   "acl_write"
     t.integer  "link_id"
-    t.datetime "published_at"
-    t.string   "published_to"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

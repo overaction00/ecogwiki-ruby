@@ -16,18 +16,14 @@
         <% @wikipages.each do |wikipage| %>
         <!--<tr class="page {{ page.modifier_type }}">-->
         <tr class="page">
-
             <td class="updated"><time datetime="<%= wikipage.updated_at %>"><%= wikipage.updated_at %></time></td>
             <td class="page">
                 <a class="caret-target" href="/<%= wikipage.title %>"><%= wikipage.title %></a>
                 <br>
                 <% unless wikipage.comment.nil? %>
-                    <span class="comment">
-                    <%= wikipage.comment %>
-                    </span>
-                <br>
+                    <span class="comment"><%= wikipage.comment %></span><br>
                 <% end %>
-                <span class="modifier-info">by <span class="modifier"><%= wikipage.user.email %></span></span>
+                <span class="modifier-info">by <span class="modifier"><%= wikipage.modifier %></span></span>
             </td>
         </tr>
         <% end %>

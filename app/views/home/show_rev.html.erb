@@ -14,9 +14,34 @@
     <% @revisions.each do |revision| %>
     <tr class="page">
         <td class="modified"><time datetime="<%= revision.created_at %>"><%= revision.created_at %></time></td>
-        <td><span class="modifier"><%= revision.wikipage.user.email %></span></td>
+        <td>
+            <span class="modifier"><%= revision.modifier %></span>
+            <br>
+            <a class="caret-target comment" href="/<%= revision.title %>?rev=<%= revision.revision %>" rel="nofollow">
+            <% if revision.comment.nil? %>
+                No comment
+            <% else %>
+                <%= revision.comment %>
+            <% end %>
+            </a>
+        </td>
         <td>(<a href="<%= @wikipage.title %>?rev=<%= revision.revision %>">rev. <%= revision.revision %></a>)</td>
-  </tr>
+    </tr>
     <% end %>
+    <tr class="page">
+      <td class="modified"><time datetime="<%= @wikipage.created_at %>"><%= @wikipage.created_at %></time></td>
+      <td>
+        <span class="modifier"><%= @wikipage.modifier %></span>
+        <br>
+        <a class="caret-target comment" href="/<%= @wikipage.title %>?rev=<%= @wikipage.revision %>" rel="nofollow">
+          <% if @wikipage.comment.nil? %>
+              No comment
+          <% else %>
+              <%= @wikipage.comment %>
+          <% end %>
+        </a>
+      </td>
+      <td>(<a href="<%= @wikipage.title %>?rev=<%= @wikipage.revision %>">rev. <%= @wikipage.revision %></a>)</td>
+    </tr>
   </tbody>
 </table>

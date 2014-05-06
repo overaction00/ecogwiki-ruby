@@ -5,8 +5,8 @@ class CreateOldWikipages < ActiveRecord::Migration
       t.string :body
       t.integer :revision
       t.integer :user_id
-      t.datetime :published_at
-      t.string :published_to
+      t.string :comment
+      t.integer :wikipage_id
       t.timestamps
     end
   end

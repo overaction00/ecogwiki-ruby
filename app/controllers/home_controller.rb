@@ -37,13 +37,14 @@ class HomeController < ApplicationController
   def write_handler
     title = params[:wikipage]
     body = params[:body]
+    comment = params[:comment]
     @wikipage = Wikipage.find_by_title(title)
     if @wikipage.nil?
-      @wikipage = Wikipage.new({title: title, body: body})
+      @wikipage = Wikipage.new({title: title, body: body, comment: comment})
       @wikipage.fill_in_default(current_user)
       @wikipage.revision += 1
     else
-      @wikipage.update_body(body)
+      @wikipage.update_wikipage(params, current_user)
     end
 
     if @wikipage.save
