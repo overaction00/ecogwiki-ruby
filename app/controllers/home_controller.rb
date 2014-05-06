@@ -66,6 +66,7 @@ class HomeController < ApplicationController
   end
 
   def markdown
+    text = params[:text]
     options = {
         :autolink => true,
         :space_after_headers => true,
