@@ -9,4 +9,9 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   has_many :wikipages
+
+  def admin?
+    # TODO: 전역 환경설정에서 어드민 계정을 설정하도록 변경
+    self.email == 'wormslab@gmail.com'
+  end
 end

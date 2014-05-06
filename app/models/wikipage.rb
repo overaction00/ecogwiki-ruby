@@ -27,7 +27,9 @@ class Wikipage < ActiveRecord::Base
   end
 
   def can_write?(user)
-    if self.acl_write.nil? || user.nil?
+    return false if user nil?
+    return true if user.admin?
+    if self.acl_write.nil?
       return false
     end
     acls = self.acl_write.split(',')

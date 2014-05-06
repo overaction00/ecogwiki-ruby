@@ -15,3 +15,7 @@ module ApplicationHelper
     page.title + '?rev=' + page.wikipage.revision.to_s
   end
 end
+
+def admin?(current_user)
+  !current_user.nil? && current_user.email == 'wormslab@gmail.com'
+end

@@ -22,7 +22,7 @@
         <% end %>
         (rev. <span class="revision"><%= @wikipage.nil? ? 0 : @wikipage.revision %></span>)
         </li>
-        <% if !@wikipage.nil? && @wikipage.can_write?(current_user) %>
+        <% if admin? current_user || (!@wikipage.nil? && @wikipage.can_write?(current_user)) %>
             <li class="edit_menu">
                 <a href="<%= params[:wikipage] %>?view=edit" id="edit" class='btn btn-primary'>Edit</a>
             </li>
