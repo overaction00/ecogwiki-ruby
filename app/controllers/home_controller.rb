@@ -13,6 +13,11 @@ class HomeController < ApplicationController
   def page_handler
     # [] = generalize_url
     @wikipage = Wikipage.find_by_title(params[:wikipage])
+    if @wikipage.nil?
+      @wikipage = Wikipage.new({title: params[:wikipage]})
+      @wikipage.fill_in_default(current_user)
+    end
+
     if params[:view] == 'edit'
       return render 'home/update'
     elsif params[:rev] == 'list'

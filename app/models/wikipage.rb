@@ -7,9 +7,8 @@ class Wikipage < ActiveRecord::Base
   belongs_to :user
 
   def fill_in_default(user)
-    self.newer_title = self.title
-    self.modifier = self.user_id
-    self.user_id = user.id
+    self.modifier = user.id
+    self.user_id = self.modifier
     self.revision = 1
   end
 
