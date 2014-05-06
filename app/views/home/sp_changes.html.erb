@@ -1,0 +1,43 @@
+<header>
+    <h1>
+        Changes
+    </h1>
+</header>
+
+<table class="pagelist changes">
+    <thead><tr>
+        <th class="updated">Updated</th>
+        <th class="page">Pages</th>
+    </tr></thead>
+    <tbody>
+    <% if @wikipages.size == 0 %>
+        <tr><td colspan="2">(no pages yet)</td></tr>
+    <% else %>
+        <% @wikipages.each do |wikipage| %>
+        <!--<tr class="page {{ page.modifier_type }}">-->
+        <tr class="page">
+
+            <td class="updated"><time datetime="<%= wikipage.updated_at %>"><%= wikipage.updated_at %></time></td>
+            <td class="page">
+                <a class="caret-target" href="/<%= wikipage.title %>"><%= wikipage.title %></a>
+                <br>
+                <% unless wikipage.comment.nil? %>
+                    <span class="comment">
+                    <%= wikipage.comment %>
+                    </span>
+                <br>
+                <% end %>
+                <span class="modifier-info">by <span class="modifier"><%= wikipage.user.email %></span></span>
+            </td>
+        </tr>
+        <% end %>
+    <% end %>
+    </tbody>
+</table>
+
+<!--{% if pages %}-->
+<!--<div>-->
+  <!--<a href="/sp.changes?index={{ next_index }}&amp;count={{ count }}" class="next-page">Load next page...</a>-->
+  <!--<div class="loading-indicator" style="display: none;"><div class="blockG" id="rotateG_01"></div><div class="blockG" id="rotateG_02"></div><div class="blockG" id="rotateG_03"></div><div class="blockG" id="rotateG_04"></div><div class="blockG" id="rotateG_05"></div><div class="blockG" id="rotateG_06"></div><div class="blockG" id="rotateG_07"></div><div class="blockG" id="rotateG_08"></div></div>-->
+<!--</div>-->
+<!--{% endif %}-->
