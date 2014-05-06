@@ -16,6 +16,8 @@ module ApplicationHelper
   end
 end
 
-def admin?(current_user)
-  !current_user.nil? && current_user.email == 'wormslab@gmail.com'
+def admin?(user)
+  puts 'helper admin?----------------------------'
+  return false if user.nil?
+  user.email == 'wormslab@gmail.com'
 end

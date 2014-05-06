@@ -1,7 +1,8 @@
 EcogwikiRuby::Application.routes.draw do
 
   devise_for :users
-  match '/sp.changes', to: 'home#index'
+  match '/sp.changes', to: 'home#sp_changes'
+  match '/sp.preferences', to: 'home#sp_preferences'
   match '/sp.markdown', to: 'home#markdown'
   get '*wikipage', to: 'home#page_handler'
   post '*wikipage', to: 'home#write_handler'

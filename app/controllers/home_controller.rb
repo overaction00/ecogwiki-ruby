@@ -7,8 +7,6 @@ class String
 end
 
 class HomeController < ApplicationController
-  def index
-  end
 
   def page_handler
     # [] = generalize_url
@@ -43,6 +41,7 @@ class HomeController < ApplicationController
     if @wikipage.nil?
       @wikipage = Wikipage.new({title: title, body: body})
       @wikipage.fill_in_default(current_user)
+      @wikipage.revision += 1
     else
       @wikipage.update_body(body)
     end
@@ -68,6 +67,17 @@ class HomeController < ApplicationController
 
   def root_handler
     redirect_to '/Home'
+  end
+
+  def sp_changes
+    puts 'changes---------------------------'
+    @wikipages = Wikipage.limit(10)
+    render 'home/sp_changes'
+  end
+
+  def sp_preferences
+    puts 'preferences---------------------------'
+    render nothing: true, status: :ok
   end
 
   def markdown
