@@ -2,8 +2,9 @@ EcogwikiRuby::Application.routes.draw do
 
   devise_for :users
   match '/sp.changes', to: 'home#sp_changes'
-  match '/sp.preferences', to: 'home#sp_preferences'
   match '/sp.markdown', to: 'home#markdown'
+  get '/sp.preferences', to: 'home#sp_preferences'
+  post '/sp.preferences', to: 'home#save_sp_preferences'
   get '*wikipage', to: 'home#page_handler'
   post '*wikipage', to: 'home#write_handler'
   put '*wikipage', to: 'home#update_handler'

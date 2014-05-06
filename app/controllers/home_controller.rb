@@ -71,14 +71,25 @@ class HomeController < ApplicationController
   end
 
   def sp_changes
-    puts 'changes---------------------------'
     @wikipages = Wikipage.limit(10)
     render 'home/sp_changes'
   end
 
   def sp_preferences
-    puts 'preferences---------------------------'
-    render nothing: true, status: :ok
+    @preference = current_user.preference
+    render 'home/sp_preferences'
+  end
+
+  def save_sp_preferences
+    title = params[:userpage_title]
+    p = Preference.find_by_user_id(current_user.id)
+    p = Preference.new if p.nil?
+    p.user_id = current_user.id
+    p.title = title
+    if p.save
+      return redirect_to '/sp.preferences'
+    end
+    render nothing: true, status: :internal_server_error
   end
 
   def markdown
