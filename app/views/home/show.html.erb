@@ -16,7 +16,12 @@
         <a href="<%= '/' + @wikipage.title + '?rev=list' %>">
             <time><%= @wikipage.updated_at %></time>
         </a>
-        (rev. <span class="revision"><%= @wikipage.nil? ? 0 : @wikipage.revision %></span>)
+        <% if @revision.nil? %>
+            (rev. <span class="revision"><%= @wikipage.revision %></span>)
+        <% else %>
+              (rev. <span class="revision"><%= @revision.revision %></span>)
+        <% end %>
+
         </li>
         <% if admin?(current_user) || @wikipage.can_write?(current_user) %>
             <li class="edit_menu">
@@ -35,8 +40,10 @@
     <% end %>
     <% if @wikipage.body.blank? %>
     <p>This page is empty.</p>
+    <% elsif !@revision.nil? %>
+      <div class="content"><%= markdown_to_html(@revision.body) %></div>
     <% else %>
-      <div class="content"><%= markdown_to_html(@wikipage.body) %></div>
+        <div class="content"><%= markdown_to_html(@wikipage.body) %></div>
     <% end %>
 
 </section>
