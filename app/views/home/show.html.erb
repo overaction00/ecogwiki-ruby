@@ -25,7 +25,7 @@
         </li>
         <% if admin?(current_user) || @wikipage.can_write?(current_user) %>
             <li class="edit_menu">
-                <a href="<%= params[:wikipage] %>?view=edit" id="edit" class='btn btn-primary'>Edit</a>
+                <a href="<%= absolute_path(params[:wikipage]) %>?view=edit" id="edit" class='btn btn-primary'>Edit</a>
             </li>
         <% end %>
     </ul>

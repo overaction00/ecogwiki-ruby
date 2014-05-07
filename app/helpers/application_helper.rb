@@ -12,12 +12,17 @@ module ApplicationHelper
   end
 
   def absolute_path(page)
-    page.title + '?rev=' + page.wikipage.revision.to_s
+    if page.class.to_s == 'String'
+      '/' + page
+    elsif page.class.to_s == 'Wikipage' || page.class.to_s == 'OldWikipage'
+      page.title + '?rev=' + page.wikipage.revision.to_s
+    else
+      page
+    end
   end
 end
 
 def admin?(user)
-  puts 'helper admin?----------------------------'
   return false if user.nil?
   user.email == 'wormslab@gmail.com'
 end

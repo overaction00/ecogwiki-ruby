@@ -26,7 +26,7 @@ $(function() {
         e.preventDefault();
         if(!window.confirm('Are you sure?')) return;
 
-        var URL = $("form").attr("action");
+        var URL = $("form.editform").attr("action");
         $.ajax({
             type: "DELETE",
             url: URL,

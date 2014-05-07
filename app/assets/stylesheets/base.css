@@ -272,6 +272,9 @@ header .edit_menu {
 .editform {
   margin: 2em 0; }
 
+.editform .CodeMirror {
+    border: solid 1px #eeeeee;
+}
 .editform textarea {
   box-sizing: border-box;
   width: 100%;

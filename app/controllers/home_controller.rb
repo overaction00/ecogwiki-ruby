@@ -83,8 +83,7 @@ class HomeController < ApplicationController
   def save_sp_preferences
     title = params[:userpage_title]
     p = Preference.find_by_user_id(current_user.id)
-    p = Preference.new if p.nil?
-    p.user_id = current_user.id
+    p = current_user.build_preference if p.nil?
     p.title = title
     if p.save
       return redirect_to '/sp.preferences'

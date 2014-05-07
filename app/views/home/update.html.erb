@@ -13,11 +13,11 @@
 </header>
 <article id="wikibody_preview"><div class="body"></div></article>
 
-<%= form_tag(params[:wikipage], method: 'post', class: 'editform') do %>
+<%= form_tag(absolute_path(params[:wikipage]), method: 'post', class: 'editform') do %>
   <input type="hidden" name="revision" value="{{ page.revision }}">
   <input type="hidden" name="preview" value="0">
 
-  <textarea name="body" placeholder="Body" autofocus="autofocus"><% unless @wikipage.nil? %><%= @wikipage.body %><% end %></textarea>
+  <textarea name="body" placeholder="Body" autofocus="autofocus"><%= @wikipage.body unless @wikipage.nil? %></textarea>
 
   <input name="comment" placeholder="Comment" class="comment" value="">
   <div class="actions">
