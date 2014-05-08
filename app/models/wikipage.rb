@@ -39,4 +39,8 @@ class Wikipage < ActiveRecord::Base
     acls.include?(user.email) || acls.include?('all')
   end
 
+  def user_preference
+    Preference.find_by_email(self.modifier)
+  end
+
 end

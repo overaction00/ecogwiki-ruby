@@ -20,9 +20,16 @@ module ApplicationHelper
       page
     end
   end
+
+  def admin?(user)
+    return false if user.nil?
+    user.email == 'wormslab@gmail.com'
+  end
+
+  def page_modifier(page)
+    user_preference = page.user_preference
+    user_preference.nil? ? page.modifier : user_preference.title
+  end
 end
 
-def admin?(user)
-  return false if user.nil?
-  user.email == 'wormslab@gmail.com'
-end
+

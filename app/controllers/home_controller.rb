@@ -19,7 +19,7 @@ class HomeController < ApplicationController
     if params[:view] == 'edit'
       return render 'home/update'
     elsif params[:rev] == 'list'
-      @revisions = @wikipage.nil? ? nil : @wikipage.old_wikipages
+      @revisions = @wikipage.nil? ? nil : @wikipage.old_wikipages.reorder('created_at desc')
       return render '/home/show_rev'
     elsif !params[:rev].nil? && params[:rev].numeric?
       return redirect_to '/' + params[:wikipage] if @wikipage.nil?
@@ -71,7 +71,7 @@ class HomeController < ApplicationController
   end
 
   def sp_changes
-    @wikipages = Wikipage.limit(10)
+    @wikipages = Wikipage.limit(10).reorder('updated_at desc')
     render 'home/sp_changes'
   end
 
@@ -85,6 +85,7 @@ class HomeController < ApplicationController
     p = Preference.find_by_user_id(current_user.id)
     p = current_user.build_preference if p.nil?
     p.title = title
+    p.email = current_user.email
     if p.save
       return redirect_to '/sp.preferences'
     end

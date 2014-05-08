@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20140506170424) do
     t.integer  "revision"
     t.integer  "user_id"
     t.string   "comment"
+    t.string   "modifier"
     t.integer  "wikipage_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
@@ -27,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20140506170424) do
   create_table "preferences", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
+    t.string   "email"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

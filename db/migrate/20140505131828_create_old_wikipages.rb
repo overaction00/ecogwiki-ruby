@@ -6,6 +6,7 @@ class CreateOldWikipages < ActiveRecord::Migration
       t.integer :revision
       t.integer :user_id
       t.string :comment
+      t.string :modifier
       t.integer :wikipage_id
       t.timestamps
     end

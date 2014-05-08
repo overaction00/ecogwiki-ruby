@@ -23,7 +23,7 @@
                 <% unless wikipage.comment.nil? %>
                     <span class="comment"><%= wikipage.comment %></span><br>
                 <% end %>
-                <span class="modifier-info">by <span class="modifier"><%= wikipage.modifier %></span></span>
+                <span class="modifier-info">by <span class="modifier"><a href="<%= page_modifier(wikipage) %>"><%= page_modifier(wikipage) %></span></span>
             </td>
         </tr>
         <% end %>

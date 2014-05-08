@@ -5,10 +5,10 @@ EcogwikiRuby::Application.routes.draw do
   match '/sp.markdown', to: 'home#markdown'
   get '/sp.preferences', to: 'home#sp_preferences'
   post '/sp.preferences', to: 'home#save_sp_preferences'
-  get '*wikipage', to: 'home#page_handler', wikipage: /.*/
-  post '*wikipage', to: 'home#write_handler', wikipage: /.*/
-  put '*wikipage', to: 'home#update_handler', wikipage: /.*/
-  delete '*wikipage', to: 'home#remove_handler', wikipage: /.*/
+  get '*wikipage', to: 'home#page_handler', wikipage: /.+/
+  post '*wikipage', to: 'home#write_handler', wikipage: /.+/
+  put '*wikipage', to: 'home#update_handler', wikipage: /.+/
+  delete '*wikipage', to: 'home#remove_handler', wikipage: /.+/
   root :to => 'home#root_handler'
 
   # The priority is based upon order of creation:
