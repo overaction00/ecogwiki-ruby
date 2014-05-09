@@ -14,8 +14,7 @@
         <tr><td colspan="2">(no pages yet)</td></tr>
     <% else %>
         <% @wikipages.each do |wikipage| %>
-        <!--<tr class="page {{ page.modifier_type }}">-->
-        <tr class="page">
+        <tr class="page <%= page_type(wikipage) %>">
             <td class="updated"><time datetime="<%= wikipage.updated_at %>"><%= wikipage.updated_at %></time></td>
             <td class="page">
                 <a class="caret-target" href="/<%= wikipage.title %>"><%= wikipage.title %></a>

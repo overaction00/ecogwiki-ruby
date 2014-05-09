@@ -24,9 +24,11 @@
 
         </li>
         <% if admin?(current_user) || @wikipage.can_write?(current_user) %>
+            <% if @revision.nil? %>
             <li class="edit_menu">
                 <a href="<%= absolute_path(params[:wikipage]) %>?view=edit" id="edit" class='btn btn-primary'>Edit</a>
             </li>
+            <% end %>
         <% end %>
     </ul>
     </header>

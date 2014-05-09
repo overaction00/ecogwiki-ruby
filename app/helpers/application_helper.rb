@@ -1,4 +1,5 @@
 require 'redcarpet'
+require 'trie'
 
 module ApplicationHelper
   def markdown_to_html(text)
@@ -26,9 +27,14 @@ module ApplicationHelper
     user.email == CONFIG[:admin]
   end
 
+
   def page_modifier(page)
     user_preference = page.user_preference
     user_preference.nil? ? page.modifier : user_preference.title
+  end
+
+  def page_type(page)
+    'other'
   end
 end
 
