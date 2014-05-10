@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140506170424) do
+ActiveRecord::Schema.define(:version => 20140510181350) do
 
   create_table "old_wikipages", :force => true do |t|
     t.string   "title"
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(:version => 20140506170424) do
   create_table "preferences", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
+    t.string   "email"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "social_auths", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "social_id"
+    t.string   "name"
     t.string   "email"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

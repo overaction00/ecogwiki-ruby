@@ -1,6 +1,14 @@
 EcogwikiRuby::Application.routes.draw do
 
+  # devise_for :users, :controllers => { :sessions => 'users/sessions' }
+  devise_scope :user do
+    get 'sp.sign_in', to: 'users/sessions#new', as: 'sign_in'
+    post 'sp.sign_in', to: 'users/sessions#create', as: 'sign_in'
+    delete 'sp.sign_out', to: 'users/sessions#destroy', as: 'sign_out'
+  end
+  # devise_for :users, path: '/sp.login', to: 'users/session#new'
   devise_for :users
+
   match '/sp.changes', to: 'home#sp_changes'
   match '/sp.markdown', to: 'home#markdown'
   get '/sp.preferences', to: 'home#sp_preferences'

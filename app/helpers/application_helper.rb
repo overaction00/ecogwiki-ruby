@@ -27,7 +27,6 @@ module ApplicationHelper
     user.email == CONFIG[:admin]
   end
 
-
   def page_modifier(page)
     user_preference = page.user_preference
     user_preference.nil? ? page.modifier : user_preference.title

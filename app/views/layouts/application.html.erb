@@ -32,11 +32,11 @@
     <li>
     <% if current_user.nil? %>
         <span class="user-email"></span>
-        <a href="<%= new_user_session_url %>">Login</a>
+        <a href="<%= sign_in_url %>">Login</a>
     <% else %>
         <span class="user-email"><%= current_user.email %></span>
         <a href="/sp.preferences" class="preferences">Preferences</a>
-        <a href="<%= destroy_user_session_url %>" data-method='delete'>Logout</a>
+        <a href="<%= sign_out_url %>" data-method='delete'>Logout</a>
     <% end %>
     </li>
 </ul></div>
