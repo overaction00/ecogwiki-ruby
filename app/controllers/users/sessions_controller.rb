@@ -6,7 +6,8 @@ class Users::SessionsController < Devise::SessionsController
 
   def create
     @current_user = User.find_by_email(params[:res][:email])
-    facebook_user(params[:res]) if @current_user.nil?
+    @current_user = facebook_user(params[:res]) if @current_user.nil?
+    return render nothing: true, status: :internal_server_error if @current_user.nil?
     session[:user_id] = @current_user.id
     resource = warden.authenticate!
     sign_in(:user, resource)
@@ -32,6 +33,7 @@ class Users::SessionsController < Devise::SessionsController
   private
 
   def facebook_user(resource)
+    begin
     User.transaction do
       user = User.new({email: resource[:email]})
       user.save
@@ -40,6 +42,10 @@ class Users::SessionsController < Devise::SessionsController
       sa.social_id = resource[:id]
       sa.name = resource[:name]
       sa.save
+      user
+    end
+    rescue
+      nil
     end
   end
 end
