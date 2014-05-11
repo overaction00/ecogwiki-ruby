@@ -1,4 +1,4 @@
-$(function() {
+$(document).ready(function() {
     var textArea = document.querySelector('.editform textarea');
     var cm = CodeMirror.fromTextArea(textArea, {
         lineNumbers: true,
@@ -37,6 +37,5 @@ $(function() {
                 alert("삭제하는데 문제발생!");
             }
         });
-        console.log();
     });
 });

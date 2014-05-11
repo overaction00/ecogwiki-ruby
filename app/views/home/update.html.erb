@@ -1,6 +1,7 @@
 <%= stylesheet_link_tag 'codemirror/codemirror', :media => 'all' %>
 <%= javascript_include_tag 'codemirror/codemirror' %>
 <%= javascript_include_tag 'codemirror/markdown' %>
+<%= javascript_include_tag 'edit_view' %>
 <header>
 <h1>
     <% titles = params[:wikipage].split(/\//); titles[0..-2].each_with_index do | item, index | %>
