@@ -24,7 +24,7 @@ module ApplicationHelper
 
   def admin?(user)
     return false if user.nil?
-    user.email == CONFIG[:admin]
+    CONFIG['admin'].split(',').map!{|x| x.strip!}.include?(user.email)
   end
 
   def page_modifier(page)

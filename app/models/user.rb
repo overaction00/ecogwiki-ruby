@@ -12,10 +12,6 @@ class User < ActiveRecord::Base
   has_many :social_auths
   has_one :preference
 
-  def admin?
-    self.email == CONFIG[:admin]
-  end
-
   protected
   def password_required?
     false

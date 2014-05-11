@@ -1,5 +1,5 @@
 <h2>Sign in</h2>
-<%= javascript_include_tag 'facebook' %>
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+<input type="hidden" name="facebook-id" data-facebook-id="<%= facebook_id %>">
+<fb:login-button scope="public_profile,email" onlogin="checkStateAndLogin();"></fb:login-button>
 <div id="status"></div>
 <div id="fb-root"></div>

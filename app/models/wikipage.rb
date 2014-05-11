@@ -31,7 +31,6 @@ class Wikipage < ActiveRecord::Base
 
   def can_write?(user)
     return false if user.nil?
-    return true if user.admin?
     if self.acl_write.nil?
       return false
     end

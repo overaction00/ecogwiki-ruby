@@ -12,3 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require common
+//= require cookie-parser
+//= require underscore

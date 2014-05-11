@@ -6,17 +6,18 @@ class Users::SessionsController < Devise::SessionsController
 
   def create
     @current_user = User.find_by_email(params[:res][:email])
-    # TODO: Social 서비스별 로그인 방법 제공
     facebook_user(params[:res]) if @current_user.nil?
+    session[:user_id] = @current_user.id
     resource = warden.authenticate!
     sign_in(:user, resource)
-    session[:user_id] = @current_user.id
+    cookies[:provider] = 'facebook'
     render nothing: true, status: :ok
   end
 
   def destroy
     redirect_path = after_sign_out_path_for(resource_name)
     signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
+    cookies.delete(:provider) unless cookies[:provider].nil?
     set_flash_message :notice, :signed_out if signed_out && is_flashing_format?
     yield resource if block_given?
 
