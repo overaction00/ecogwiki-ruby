@@ -1,6 +1,8 @@
 <%= stylesheet_link_tag 'codemirror/codemirror', :media => 'all' %>
+<%= stylesheet_link_tag 'highlightjs/solarized_dark', :media => 'all' %>
 <%= javascript_include_tag 'codemirror/codemirror' %>
 <%= javascript_include_tag 'codemirror/markdown' %>
+<%= javascript_include_tag 'highlightjs/highlight.pack' %>
 <%= javascript_include_tag 'edit_view' %>
 <header>
 <h1>
@@ -12,7 +14,7 @@
     <span><%= titles[-1] %></span>
 </h1>
 </header>
-<article id="wikibody_preview"><div class="body"></div></article>
+<article id="wikibody_preview"><section class="body"></section></article>
 
 <%= form_tag(absolute_path(params[:wikipage]), method: 'post', class: 'editform') do %>
   <input type="hidden" name="revision" value="{{ page.revision }}">

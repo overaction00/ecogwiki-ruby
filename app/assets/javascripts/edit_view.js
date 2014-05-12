@@ -13,7 +13,8 @@ $(document).ready(function() {
             url: "/sp.markdown",
             data : {text: cm.getDoc().getValue()},
             success: function(html) {
-                $("#wikibody_preview").html(html);
+                $("#wikibody_preview section").html(html);
+                hljs.initHighlighting();
             },
             error: function() {
                 alert('문제발생!');

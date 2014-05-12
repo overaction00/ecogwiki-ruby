@@ -461,14 +461,11 @@ article .body h6 a.caret-target {
 
   .social {
     display: none; } }
-article .body code {
-  background-color: #F4F4F4;
-  color: #555;
-  padding: 0 0.1em;
-  font-family: NanumGothicCoding, "Courier New", Courier, monospace; }
+article .body code.hljs {
+  border-radius: 3px; }
 
 article .body pre {
-  border: 1px solid #cccccc;
+  border: 1px solid #151515;
   border-radius: 3px;
   background-color: #F4F4F4;
   padding: 0.5em;

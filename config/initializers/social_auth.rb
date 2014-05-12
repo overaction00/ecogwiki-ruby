@@ -6,7 +6,8 @@ module Devise
       end
 
       def authenticate!
-        if params[:res][:verified] == 'true'
+        fail!('Authentication failed') if params[:res].nil?
+        if !params[:res][:verified].nil? && params[:res][:verified] == 'true'
           resource = User.find_by_email(params[:res][:email])
           success!(resource)
         else

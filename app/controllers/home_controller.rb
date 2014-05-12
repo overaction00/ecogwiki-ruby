@@ -1,12 +1,8 @@
-require 'redcarpet'
 
-class String
-  def numeric?
-    Float(self) != nil rescue false
-  end
-end
 
 class HomeController < ApplicationController
+  before_filter :authenticate_user!, :only => [:write_handler, :remove_handler, :save_sp_preferences]
+
 
   def page_handler
     # [] = generalize_url
@@ -93,14 +89,7 @@ class HomeController < ApplicationController
   end
 
   def markdown
-    text = params[:text]
-    options = {
-        :autolink => true,
-        :space_after_headers => true,
-        :no_intra_emphasis => true
-    }
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, options)
-    render text: markdown.render(text).html_safe, status: :ok
+    render text: markdown_to_html(params[:text]), status: :ok
   end
 
 end
