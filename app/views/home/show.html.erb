@@ -32,20 +32,20 @@
         <% end %>
     </ul>
     </header>
+    <section class="body">
+        <!-- if redirected from -->
+        <% unless @revision.nil? %>
+        <div class="infobox message">
+            <p>You are seeing an old version of the page. Go to <a href="<%= absolute_path(@revision) %>">latest version</a></p>
+        </div>
+        <% end %>
+        <% if @wikipage.body.blank? %>
+        <p>This page is empty.</p>
+        <% elsif !@revision.nil? %>
+          <div class="content"><%= markdown_to_html(@revision.body) %></div>
+        <% else %>
+            <div class="content"><%= markdown_to_html(@wikipage.body) %></div>
+        <% end %>
+    </section>
 </article>
-<section class="body">
-    <!-- if redirected from -->
-    <% unless @revision.nil? %>
-    <div class="infobox message">
-        <p>You are seeing an old version of the page. Go to <a href="<%= absolute_path(@revision) %>">latest version</a></p>
-    </div>
-    <% end %>
-    <% if @wikipage.body.blank? %>
-    <p>This page is empty.</p>
-    <% elsif !@revision.nil? %>
-      <div class="content"><%= markdown_to_html(@revision.body) %></div>
-    <% else %>
-        <div class="content"><%= markdown_to_html(@wikipage.body) %></div>
-    <% end %>
-</section>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
