@@ -4,12 +4,6 @@ class ApplicationController < ActionController::Base
   helper_method :facebook_id
   helper_method :markdown_to_html
 
-  class String
-    def numeric?
-      Float(self) != nil rescue false
-    end
-  end
-
   private
 
   def current_user
