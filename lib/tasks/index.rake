@@ -107,6 +107,8 @@ namespace :index do
         # puts ''
 
       end
+
+      # 원본문서와 대조문서에 연관도가 0.8 이상이라면 관련문서에 연결시킨다.
       sorted_page = score.sort_by { |t, s| -s}
       sorted_page.each do |item|
         break if item[1] < 0.8
