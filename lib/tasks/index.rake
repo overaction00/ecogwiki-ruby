@@ -107,16 +107,12 @@ namespace :index do
         # puts ''
 
       end
-      puts origin.title + '-----------------------------'
-      a = score.sort_by { |t, s| -s}
-      a[0..10].each do |item|
-        # 추천 문서는 10개 까지만 제공하도록 한다.
-        # TODO: 문서가 많아져서 필터링이 좋아진다면 더 제공할지 여부를 정해야 한다.
-        puts item.class
-        puts item[0].class
-        puts item[0]
-        puts item[1].class
-        puts item[1]
+      sorted_page = score.sort_by { |t, s| -s}
+      sorted_page.each do |item|
+        break if item[1] < 0.8
+        # TODO: 문서가 많아져서 필터링이 좋아진다면 점수를 조졍해야 한다.
+        origin.related_pages.each {|p| p.destroy}
+        RelatedPage.create({wikipage_id: origin.id, title: item[0], score: item[1]})
       end
     end
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140510181350) do
+ActiveRecord::Schema.define(:version => 20140517060532) do
 
   create_table "old_wikipages", :force => true do |t|
     t.string   "title"
@@ -31,6 +31,14 @@ ActiveRecord::Schema.define(:version => 20140510181350) do
     t.string   "email"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "related_pages", :force => true do |t|
+    t.integer  "wikipage_id"
+    t.string   "title"
+    t.float    "score"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "social_auths", :force => true do |t|

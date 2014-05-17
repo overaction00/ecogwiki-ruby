@@ -3,6 +3,7 @@ class Wikipage < ActiveRecord::Base
                   :modifier, :comment, :acl_read, :acl_write, :link_id
 
   has_many :old_wikipages
+  has_many :related_pages
 
   belongs_to :user
 
