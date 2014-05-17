@@ -1,6 +1,7 @@
 namespace :index do
 
   require 'set'
+  require 'trie'
   require 'redcarpet'
 
   def peel_markdown(markdown, page)
@@ -19,60 +20,71 @@ namespace :index do
     }
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, options)
 
-    h = {}
+    # term frequency 를 계산한다.
+    tf = {}
     word_set = Set.new
     Wikipage.all.each do |page|
       next if page.body.blank?
 
       only_text = peel_markdown(markdown, page)
 
-      h[page.title] = h.has_key?(page.title) ? h[page.title] : {}
-      doc_body = h[page.title]
-      only_text.split.map do |word|
-        word_set.add(word)
-        doc_body.has_key?(word) ? doc_body[word] += 1 : doc_body[word] = 1
+      tf[page.title] = tf.has_key?(page.title) ? tf[page.title] : {}
+      doc_body = tf[page.title]
+      only_text.split.each do |word|
+        (2..word.length).each do |index|
+          partial_word = word[0...index]
+          word_set.add(partial_word)
+          if doc_body.has_key?(partial_word)
+            doc_body[partial_word] += 1
+          else
+            doc_body[partial_word] = 1
+          end
+        end
       end
     end
 
     df = {}
     idf = {}
-    df_idf = {}
+    tf_idf = {}
     size = Wikipage.all.count
 
     # document frequency 를 계산한다.
     word_set.each do |word|
-      h.keys.each do |doc|
-        if h[doc].has_key?(word)
+      tf.keys.each do |doc|
+        if tf[doc].has_key?(word)
           df.has_key?(word) ? df[word] += 1 : df[word] = 1
         end
       end
     end
+    # puts df.inspect
 
     # inverse document frequency 를 계산한다.
     df.keys.each do |word|
       idf[word] = size / df[word]
     end
+    # puts idf.inspect
 
-    # df-idf 를 계산한다.
+    # tf-idf 를 계산한다.
     word_set.each do |word|
-      h.keys.each do |doc|
-        if h[doc].has_key?(word)
-          df_idf[doc] = {} if df_idf[doc].nil?
-          df_idf[doc][word] = df[word] * idf[word] if df.has_key?(word)
+      tf.keys.each do |doc|
+        tf_document = tf[doc]
+        if tf_document.has_key?(word)
+          tf_idf[doc] = {} if tf_idf[doc].nil?
+          tf_idf[doc][word] = tf_document[word] * idf[word] if df.has_key?(word)
         end
       end
     end
-
     # puts df_idf.inspect
+
     Wikipage.all.each do |origin|
-      origin_text = peel_markdown(markdown, origin)
+      score = {}
       Wikipage.all.each do |page|
         next if origin.title == page.title
 
         # 원본문서와 대조문서에 있는 단어들을 골라낸다.
         matching_words = Set.new
-        origin_text.split.map do |word|
-          matching_words.add(word) if h[page.title].has_key?(word)
+        word_set.each do |word|
+          matching_words.add(word) if tf[origin.title].has_key?(word) && tf[page.title].has_key?(word)
         end
 
         next if matching_words.size == 0
@@ -81,10 +93,30 @@ namespace :index do
         origin_v = 0
         page_v = 0
         matching_words.each do |word|
-          sum += df_idf[origin.title][word] * df_idf[page.title][word]
-          origin_v += df_idf[origin.title][word] ** 2
-          page_v += df_idf[page.title][word] ** 2
+          sum += tf_idf[origin.title][word] * tf_idf[page.title][word]
+          origin_v += tf_idf[origin.title][word] ** 2
+          page_v += tf_idf[page.title][word] ** 2
         end
+
+        cosine_sim = sum / (Math.sqrt(origin_v) * Math.sqrt(page_v))
+        score[page.title] = cosine_sim
+        # puts ''
+        # puts 'origin: ' + origin.title + ', differ: ' + page.title
+        # puts 'sum: ' + sum.to_s + ', origin: ' + origin_v.to_s + ', page: ' + page_v.to_s + ', ' + cosine_sim.to_s
+        # puts ''
+        # puts ''
+
+      end
+      puts origin.title + '-----------------------------'
+      a = score.sort_by { |t, s| -s}
+      a[0..10].each do |item|
+        # 추천 문서는 10개 까지만 제공하도록 한다.
+        # TODO: 문서가 많아져서 필터링이 좋아진다면 더 제공할지 여부를 정해야 한다.
+        puts item.class
+        puts item[0].class
+        puts item[0]
+        puts item[1].class
+        puts item[1]
       end
     end
   end
