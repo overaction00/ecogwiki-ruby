@@ -1,8 +1,5 @@
-
-
 class HomeController < ApplicationController
   before_filter :authenticate_user!, :only => [:write_handler, :remove_handler, :save_sp_preferences]
-
 
   def page_handler
     # [] = generalize_url
@@ -43,9 +40,14 @@ class HomeController < ApplicationController
       @wikipage.update_wikipage(params, current_user)
     end
 
-    if @wikipage.save
+    unless @wikipage.save
+      return render nothing: true, status: :internal_server_error
+    end
+
+    if @wikipage.create_toc
       return redirect_to '/' + params[:wikipage]
     end
+
     render nothing: true, status: :internal_server_error
   end
 

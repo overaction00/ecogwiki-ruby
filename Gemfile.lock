@@ -58,6 +58,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25.1)
     multi_json (1.9.3)
+    murmurhash3 (0.1.4)
     orm_adapter (0.5.0)
     polyglot (0.3.4)
     rack (1.4.5)
@@ -118,6 +119,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise
   jquery-rails
+  murmurhash3
   rails (= 3.2.13)
   redcarpet
   sass-rails (~> 3.2.3)

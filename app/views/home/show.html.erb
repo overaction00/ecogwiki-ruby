@@ -1,13 +1,14 @@
 <%= stylesheet_link_tag 'highlightjs/solarized_dark', :media => 'all' %>
+<%= javascript_include_tag 'show' %>
 <%= javascript_include_tag 'highlightjs/highlight.pack' %>
 <script>hljs.initHighlightingOnLoad();</script>
 <article>
     <header>
         <h1>
             <% titles = params[:wikipage].split(/\//); titles[0..-2].each_with_index do | item, index | %>
-            <span class="parent">
-                <a href="<%= '/' + titles[0..index].join('/') %>"><%= titles[index] %></a>
-            </span>
+                <span class="parent">
+                    <a href="<%= '/' + titles[0..index].join('/') %>"><%= titles[index] %></a>
+                </span>
             <% end %>
             <span><%= titles[-1] %></span>
             <a id="top" href="#top" class="caret-target vcaret">#</a>
@@ -35,6 +36,9 @@
             <% end %>
         </ul>
     </header>
+    <section class="toc-section">
+        <%= generate_toc_html(@wikipage) %>
+    </section>
     <section class="body">
         <!-- if redirected from -->
         <% unless @revision.nil? %>
@@ -48,20 +52,20 @@
         <% elsif !@revision.nil? %>
             <div class="content"><%= markdown_to_html(@revision.body) %></div>
         <% else %>
-            <div class="content">
-                <%= markdown_to_html(@wikipage.body) %>
-                <% unless @wikipage.related_pages.blank? %>
-                    <h2>Related page</h2>
-                    <ul>
-                        <% @wikipage.related_pages.each do |related_page| %>
-                            <li class="wikipage"><a href="<%= absolute_path(related_page.title) %>"><%= related_page.title  %></a></li>
-                        <% end %>
-                    </ul>
-                <% end %>
-            </div>
+            <div class="content"><%= markdown_to_html(@wikipage.body) %></div>
+
+
         <% end %>
-
-
     </section>
+    <% unless @wikipage.related_pages.blank? %>
+    <section class="related_page">
+        <h2>Related page</h2>
+        <ul>
+            <% @wikipage.related_pages.each do |related_page| %>
+                <li class="wikipage"><a href="<%= absolute_path(related_page.title) %>"><%= related_page.title  %></a></li>
+            <% end %>
+        </ul>
+    </section>
+    <% end %>
 </article>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>

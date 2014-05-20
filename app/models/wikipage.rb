@@ -1,7 +1,10 @@
+require 'murmurhash3'
+
 class Wikipage < ActiveRecord::Base
   attr_accessible :title, :body, :revision, :user_id,
                   :modifier, :comment, :acl_read, :acl_write, :link_id
 
+  has_many :tocs
   has_many :old_wikipages
   has_many :related_pages
 
@@ -30,6 +33,43 @@ class Wikipage < ActiveRecord::Base
     self.revision += 1
   end
 
+
+  def create_toc
+    body = self.body
+
+    self.tocs.each {|t| t.destroy } unless self.tocs.nil?
+
+    current_order = 0
+    current_depth = 0
+    keys = []
+
+    body.each_line do |line|
+      m = /(#+)(\s+)(.+)/.match(line)
+      next if m.nil?
+
+      header_len = m[1].length
+      raise 'Header must start with 1' if (current_depth - header_len).abs > 1
+      current_depth = header_len
+      title = m[3]
+      key = make_header_key(title)
+      until keys.include?(key) do
+        key = make_header_key(title + Random.rand(10000).to_s)
+        keys.append(key) unless keys.include?(key)
+      end
+
+      depth = header_len
+      order = current_order
+      toc = self.tocs.build({key: key, title: title, depth: depth, order: order})
+      unless toc.save
+        puts '-----------------------false'
+        false
+      end
+      current_order += 1
+    end
+    puts '-----------------------true'
+    true
+  end
+
   def can_write?(user)
     return false if user.nil?
     if self.acl_write.nil?
@@ -42,5 +82,11 @@ class Wikipage < ActiveRecord::Base
   def user_preference
     Preference.find_by_email(self.modifier)
   end
+
+  private
+  def make_header_key(s)
+    MurmurHash3::Native128.murmur3_128_str_hash(s).pack('L*').unpack('H*').first
+  end
+
 
 end
