@@ -31,6 +31,8 @@ class Wikipage < ActiveRecord::Base
     self.comment = params[:comment] unless self.comment == params[:body]
     self.modifier = user.email
     self.revision += 1
+    self.save
+    self.create_toc
   end
 
 
@@ -44,7 +46,7 @@ class Wikipage < ActiveRecord::Base
     keys = []
 
     body.each_line do |line|
-      m = /(#+)(\s+)(.+)/.match(line)
+      m = /^(#+)(\s+)(.+)/.match(line)
       next if m.nil?
 
       header_len = m[1].length
@@ -61,12 +63,10 @@ class Wikipage < ActiveRecord::Base
       order = current_order
       toc = self.tocs.build({key: key, title: title, depth: depth, order: order})
       unless toc.save
-        puts '-----------------------false'
         false
       end
       current_order += 1
     end
-    puts '-----------------------true'
     true
   end
 

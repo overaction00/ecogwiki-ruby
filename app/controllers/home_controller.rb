@@ -36,19 +36,13 @@ class HomeController < ApplicationController
       @wikipage = Wikipage.new({title: title, body: body, comment: comment})
       @wikipage.fill_in_default(current_user)
       @wikipage.revision += 1
-    else
-      @wikipage.update_wikipage(params, current_user)
+    elsif @wikipage.body != params[:body] or @wikipage.comment != params[:comment]
+      Wikipage.transaction do
+        @wikipage.update_wikipage(params, current_user)
+      end
     end
 
-    unless @wikipage.save
-      return render nothing: true, status: :internal_server_error
-    end
-
-    if @wikipage.create_toc
-      return redirect_to '/' + params[:wikipage]
-    end
-
-    render nothing: true, status: :internal_server_error
+    redirect_to URI.encode('/' + params[:wikipage])
   end
 
   def update_handler
