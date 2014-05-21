@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140518135055) do
+ActiveRecord::Schema.define(:version => 20140521141015) do
+
+  create_table "inverted_indices", :force => true do |t|
+    t.string   "word"
+    t.string   "page"
+    t.integer  "count"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "old_wikipages", :force => true do |t|
     t.string   "title"
