@@ -55,13 +55,11 @@
             <div class="content"><%= markdown_to_html(@revision.body) %></div>
         <% else %>
             <div class="content"><%= markdown_to_html(@wikipage.body) %></div>
-
-
         <% end %>
     </section>
     <% unless @wikipage.related_pages.blank? %>
-    <section class="related_page">
-        <h2>Related page</h2>
+    <section class="similar_page">
+        <h2>Similar page</h2>
         <ul>
             <% @wikipage.related_pages.each do |related_page| %>
                 <li class="wikipage"><a href="<%= absolute_path(related_page.title) %>"><%= related_page.title  %></a></li>

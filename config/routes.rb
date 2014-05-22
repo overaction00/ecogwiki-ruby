@@ -8,7 +8,8 @@ EcogwikiRuby::Application.routes.draw do
   end
 
   match '/sp.changes', to: 'home#sp_changes'
-  match '/sp.markdown', to: 'home#markdown'
+  match '/sp.markdown', to: 'home#sp_markdown'
+  match '/sp.searches', to: 'home#sp_searches'
   get '/sp.preferences', to: 'home#sp_preferences'
   post '/sp.preferences', to: 'home#save_sp_preferences'
   get '*wikipage', to: 'home#page_handler', wikipage: /.+/

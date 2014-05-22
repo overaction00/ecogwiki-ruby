@@ -23,7 +23,7 @@
 <![endif]-->
 <div class="top-bar"><ul>
     <li class="search">
-    <%= form_tag('/sp.search', method: 'get') do %>
+    <%= form_tag('/sp.searches', method: 'get') do %>
         <label style="display: none" for="searchbox">Search</label>
         <input type="hidden" name="redir" value="1">
         <input type="text" id="searchbox" name="q" placeholder="Search">

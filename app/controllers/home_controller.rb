@@ -67,6 +67,11 @@ class HomeController < ApplicationController
     render 'home/sp_changes'
   end
 
+  def sp_searches
+    @words = InvertedIndex.where("word = '#{params[:q]}'")
+    render 'home/sp_searches'
+  end
+
   def sp_preferences
     @preference = current_user.preference
     render 'home/sp_preferences'
@@ -84,7 +89,7 @@ class HomeController < ApplicationController
     render nothing: true, status: :internal_server_error
   end
 
-  def markdown
+  def sp_markdown
     render text: markdown_to_html(params[:text]), status: :ok
   end
 

@@ -1,0 +1,19 @@
+<h2>'<%= params[:q] %>' 검색결과</h2>
+<table class="pagelist">
+    <tbody>
+        <% if @words.size == 0 %>
+            <tr><td colspan="2">(no search result)</td></tr>
+        <% else %>
+            <% @words.each do |word| %>
+                <tr class="page other">
+                    <td class="page">
+                        <a class="caret-target" href="<%= absolute_path(word.page)%>"><%= word.page %></a>
+                    </td>
+                    <td class="count">
+                        (출현빈도: <%= word.count %>)
+                    </td>
+                </tr>
+            <% end %>
+        <% end %>
+    </tbody>
+</table>
