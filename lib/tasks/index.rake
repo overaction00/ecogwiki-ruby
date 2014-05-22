@@ -113,8 +113,8 @@ namespace :index do
       sorted_page.each do |item|
         break if item[1] < 0.8
         # TODO: 문서가 많아져서 필터링이 좋아진다면 점수를 조졍해야 한다.
-        origin.related_pages.each {|p| p.destroy}
-        RelatedPage.create({wikipage_id: origin.id, title: item[0], score: item[1]})
+        origin.similar_pages.each {|p| p.destroy}
+        SimilarPage.create({wikipage_id: origin.id, title: item[0], score: item[1]})
       end
     end
   end
