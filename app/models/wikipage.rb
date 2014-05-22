@@ -6,7 +6,7 @@ class Wikipage < ActiveRecord::Base
 
   has_many :tocs
   has_many :old_wikipages
-  has_many :related_pages
+  has_many :similar_pages
 
   belongs_to :user
 
