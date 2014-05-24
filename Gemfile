@@ -10,6 +10,7 @@ gem 'sqlite3'
 gem 'redcarpet'
 gem 'trie'
 gem 'murmurhash3'
+gem 'kaminari'
 
 # Gems used only for assets and not required
 # in production environments by default.

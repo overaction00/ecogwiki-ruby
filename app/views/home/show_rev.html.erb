@@ -10,21 +10,6 @@
     <% if @revisions.nil? %>
     <tr><td colspan="2">(no revisions)</td></tr>
     <% end %>
-    <tr class="page <%= page_type(@wikipage) %>">
-      <td class="modified"><time datetime="<%= @wikipage.created_at %>"><%= @wikipage.created_at %></time></td>
-      <td>
-        <span class="modifier"><a href="<%= page_modifier(@wikipage) %>"><%= page_modifier(@wikipage) %></a></span>
-        <br>
-        <a class="caret-target comment" href="/<%= @wikipage.title %>?rev=<%= @wikipage.revision %>" rel="nofollow">
-          <% if @wikipage.comment.nil? %>
-              No comment
-          <% else %>
-              <%= @wikipage.comment %>
-          <% end %>
-        </a>
-      </td>
-      <td>(<a href="<%= @wikipage.title %>?rev=<%= @wikipage.revision %>">rev. <%= @wikipage.revision %></a>)</td>
-    </tr>
     <% @revisions.each do |revision| %>
     <tr class="page <%= page_type(revision) %>">
         <td class="modified"><time datetime="<%= revision.created_at %>"><%= revision.created_at %></time></td>
@@ -42,6 +27,7 @@
         <td>(<a href="<%= @wikipage.title %>?rev=<%= revision.revision %>">rev. <%= revision.revision %></a>)</td>
     </tr>
     <% end %>
-
   </tbody>
+
 </table>
+<%= paginate @revisions %>

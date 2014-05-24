@@ -15,3 +15,4 @@
 //= require common
 //= require cookie-parser
 //= require underscore
+//= require bootstrap-3.3.1/bootstrap

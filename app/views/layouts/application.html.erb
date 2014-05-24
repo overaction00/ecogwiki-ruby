@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <title>EcogwikiRuby</title>
-  <%= stylesheet_link_tag    'application', :media => 'all' %>
-  <%= stylesheet_link_tag    'base', :media => 'all' %>
-  <%= javascript_include_tag 'application' %>
-  <%= csrf_meta_tags %>
+    <title>EcogwikiRuby</title>
+    <%= stylesheet_link_tag    'application', :media => 'all' %>
+    <%= stylesheet_link_tag    'base', :media => 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tags %>
 </head>
 <body>
 <div style="display: none;"><a href="#skip">Skip to content</a></div>
@@ -23,22 +23,22 @@
 <![endif]-->
 <div class="top-bar"><ul>
     <li class="search">
-    <%= form_tag('/sp.searches', method: 'get') do %>
-        <label style="display: none" for="searchbox">Search</label>
-        <input type="hidden" name="redir" value="1">
-        <input type="text" id="searchbox" name="q" placeholder="Search">
-        <input type="submit">
-    <% end %>
+        <%= form_tag('/sp.searches', method: 'get') do %>
+            <label style="display: none" for="searchbox">Search</label>
+            <input type="hidden" name="redir" value="1">
+            <input type="text" id="searchbox" name="q" placeholder="Search">
+            <input type="submit">
+        <% end %>
     </li>
     <li>
-    <% if current_user.nil? %>
-        <span class="user-email"></span>
-        <a href="<%= sign_in_url %>">Login</a>
-    <% else %>
-        <span class="user-email"><%= current_user.email %></span>
-        <a href="/sp.preferences" class="preferences">Preferences</a>
-        <a href="<%= sign_out_url %>" id="logout" data-method='delete'>Logout</a>
-    <% end %>
+        <% if current_user.nil? %>
+            <span class="user-email"></span>
+            <a href="<%= sign_in_url %>">Login</a>
+        <% else %>
+            <span class="user-email"><%= current_user.email %></span>
+            <a href="/sp.preferences" class="preferences">Preferences</a>
+            <a href="<%= sign_out_url %>" id="logout" data-method='delete'>Logout</a>
+        <% end %>
     </li>
 </ul></div>
 <div class="contents">
@@ -51,8 +51,6 @@
     <div><a name="skip"></a></div>
     <%= yield %>
 </div>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
 <input type="hidden" name="facebook-id" data-facebook-id="<%= facebook_id %>">
 <div id="fb-root"></div>
 </body>

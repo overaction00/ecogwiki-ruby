@@ -1,4 +1,5 @@
 class OldWikipage < ActiveRecord::Base
+  paginates_per 10
   attr_accessible :title, :body, :wikipage_id, :revision, :comment, :modifier,
                   :created_at, :updated_at
 
