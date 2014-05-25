@@ -90,6 +90,10 @@ class HomeController < ApplicationController
   end
 
   def sp_markdown
+    puts '----------------------'
+    puts params[:text]
+    puts '----------------------'
+
     render text: markdown_to_html(params[:text]), status: :ok
   end
 

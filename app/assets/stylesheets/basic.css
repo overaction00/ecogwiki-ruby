@@ -1,0 +1,281 @@
+html, body {
+    width: 100%;
+    margin: 0;
+    color: #444;
+    font-size: 18px;
+    font-family: "Open Sans", "NanumGothic", "Malgun Gothic",  "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+}
+
+a {
+    color: #447;
+    text-decoration: none !important;
+}
+
+a:hover {
+    color: #46A;
+}
+
+.top-bar {
+    padding: 0.3em;
+    list-style-type: none;
+    background-color: #222;
+    color: #CCC;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+    overflow: visible;
+}
+
+.top-bar a {
+    color: #CCC;
+}
+
+.top-bar a:hover {
+    color: #FFF;
+}
+
+.top-bar ul {
+    margin: 0 3% 0 3%;
+    padding: 0;
+}
+
+.top-bar li {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.top-bar li.search {
+    width: 15%;
+}
+
+.top-bar li.article-title {
+    margin-left: 5%;
+    width: 30%;
+}
+
+.top-bar li.article-header {
+    width: 30%;
+}
+
+.top-bar li .preferences {
+    margin-right: 1em;
+}
+
+.top-bar li.search input[type="submit"] {
+    display: none;
+}
+
+.top-bar .user-email {
+    display: none;
+}
+
+.contents {
+    margin: 3% 15% 3% 15%;
+    width: 70%;
+}
+
+nav {
+    margin: 2em 0 0 0;
+    padding: 0;
+    line-height: 1em;
+}
+
+nav ul {
+    width: 100%;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline-block;
+    float: left;
+    margin: 0;
+    padding: 0 0.5em 0 0;
+}
+
+header small {
+    font-size: 40%;
+}
+
+header .info {
+    position: relative;
+    padding: 0.5em 0;
+    margin: 0;
+    border-top: 1px solid #aaaaaa;
+    list-style-type: none;
+}
+
+header .info > .updated_at,
+header .info > .published_at,
+header .info > .modifier {
+    display: block;
+    font-family: NanumGothicCoding, "Courier New", Courier, monospace;
+    margin: 0;
+    padding: 0;
+}
+
+header .info > .modifier {
+    margin-top: 0.5em;
+}
+
+header .edit_menu {
+    position: absolute;
+    top: 0.5em;
+    right: 0;
+    margin: 0;
+    padding: 0;
+}
+
+article .toc-section .toc {
+    display: inline-block;
+    border: 1px solid #cccccc;
+    background-color: #F8F8F8;
+    padding: 0.5em 1em;
+    margin: 1.5em 0;
+}
+
+article .toc-section .toc h1 {
+    font-size: 1.35em;
+}
+
+article .toc-section .toc h1 {
+    margin-left: -1.2em;
+}
+
+article .body {
+    font-size: 16px;
+}
+
+article .body h1 {
+    font-size: 2em;
+}
+article .body h2 {
+    font-size: 1.8em;
+}
+article .body h3 {
+    font-size: 1.6em;
+}
+article .body h4 {
+    font-size: 1.4em;
+}
+article .body h5 {
+    font-size: 1.2em;
+}
+article .body h6 {
+    font-size: 1.0em;
+}
+
+.editform {
+    margin: 2em 0;
+}
+
+.editform .CodeMirror {
+    border: solid 1px #eeeeee;
+}
+.editform textarea {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 100px;
+    margin: 0.5em 0;
+    padding: 0.5em;
+    font-family: NanumGothicCoding, "Courier New", Courier, monospace;
+    font-size: 1em;
+    line-height: 1.5em;
+}
+
+.editform input.comment {
+    width: 100%;
+    margin: 2em 0 0.5em;
+    box-sizing: border-box;
+}
+
+.editform .actions {
+    margin: 0.5em 0;
+}
+
+table.pagelist {
+    width: 100%;
+    border-color: #CCC;
+    border-collapse: collapse;
+    margin: 2em 0;
+}
+
+table.pagelist th, td {
+    padding: 16px 6px;
+    text-align: left;
+    vertical-align: text-top;
+    border-top: 1px solid #dddddd;
+}
+
+table.pagelist .modifier-info {
+    font-size: 0.75em;
+}
+
+table.pagelist .page {
+    border-left: 2px solid transparent;
+}
+
+table.pagelist .page.anonymous {
+    border-left-color: transparent;
+}
+
+table.pagelist .page.other {
+    border-left-color: #DDD;
+}
+
+table.pagelist .page.self {
+    border-left-color: #74c476;
+}
+
+/* System page tables */
+/* Wiki sp.changes    */
+table.changes th {
+    display: none;
+    text-align: left;
+}
+
+table.changes td.updated {
+    width: 7em;
+    font-size: 0.75em;
+}
+
+table.changes .comment {
+    font-size: 0.75em;
+    color: #888;
+}
+
+/* Wiki sp.changes */
+/* Wiki sp.posts   */
+table.posts th {
+    display: none;
+    text-align: left;
+}
+
+table.posts td.published {
+    width: 7em;
+    font-size: 0.75em;
+}
+
+/* } Wiki sp.posts */
+/* Revision history { */
+table.revisions th {
+    display: none;
+    text-align: left;
+}
+
+table.revisions td.modified {
+    width: 7em;
+    font-size: 0.75em;
+}
+
+table.revisions .comment {
+    color: #888;
+}

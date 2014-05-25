@@ -13,7 +13,7 @@
             <span><%= titles[-1] %></span>
             <a id="top" href="#top" class="caret-target vcaret">#</a>
             <br>
-            <a href="/sp.searches?q=<%= @wikipage.title %>" class="search-by-title">Find similar titles</a>
+            <a href="/sp.searches?q=<%= @wikipage.title %>" class="search-by-title"><small>Find similar titles</small></a>
         </h1>
         <ul class="info">
             <li class="updated_at">
@@ -59,7 +59,7 @@
     </section>
     <% unless @wikipage.similar_pages.blank? %>
     <section class="similar_page">
-        <h2>Similar page</h2>
+        <h3>Similar page</h3>
         <ul>
             <% @wikipage.similar_pages.each do |similar_page| %>
                 <li class="wikipage"><a href="<%= absolute_path(similar_page.title) %>"><%= similar_page.title  %></a></li>

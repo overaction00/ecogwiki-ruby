@@ -9,11 +9,11 @@ $(document).ready(function() {
         e.stopPropagation();
         e.preventDefault();
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: "/sp.markdown",
             data : {text: cm.getDoc().getValue()},
             success: function(html) {
-                $("#wikibody_preview section").html(html);
+                $("#wikibody_preview").find("section").html(html);
                 hljs.initHighlighting();
             },
             error: function() {
