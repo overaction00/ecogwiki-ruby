@@ -5,6 +5,7 @@
     <thead><tr>
         <th class="modified">Modified</th>
         <th class="comment">Comment</th>
+        <th class="revision-count">Revision count</th>
     </tr></thead>
     <tbody>
     <% if @revisions.nil? %>
@@ -17,10 +18,10 @@
             <span class="modifier"><a href="<%= page_modifier(@wikipage) %>"><%= page_modifier(@wikipage) %></span>
             <br>
             <a class="caret-target comment" href="/<%= revision.title %>?rev=<%= revision.revision %>" rel="nofollow">
-            <% if revision.comment.nil? %>
-                No comment
+            <% if revision.comment.nil? || revision.comment.blank? %>
+                <span class="comment">(No comment)</span>
             <% else %>
-                <%= revision.comment %>
+                <span class="comment"><%= revision.comment %></span>
             <% end %>
             </a>
         </td>

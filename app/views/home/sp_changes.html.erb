@@ -17,9 +17,11 @@
         <tr class="page <%= page_type(wikipage) %>">
             <td class="updated"><time datetime="<%= wikipage.updated_at %>"><%= wikipage.updated_at %></time></td>
             <td class="page">
-                <a class="caret-target" href="/<%= wikipage.title %>"><%= wikipage.title %></a>
+                <a class="caret-target" href="<%= absolute_path(wikipage.title) %>"><%= wikipage.title %></a>
                 <br>
-                <% unless wikipage.comment.nil? %>
+                <% if wikipage.comment.nil? || wikipage.comment.blank? %>
+                    <span class="comment">(No comment)</span><br>
+                <% else %>
                     <span class="comment"><%= wikipage.comment %></span><br>
                 <% end %>
                 <span class="modifier-info">by <span class="modifier"><a href="<%= page_modifier(wikipage) %>"><%= page_modifier(wikipage) %></span></span>
@@ -29,10 +31,3 @@
     <% end %>
     </tbody>
 </table>
-
-<!--{% if pages %}-->
-<!--<div>-->
-  <!--<a href="/sp.changes?index={{ next_index }}&amp;count={{ count }}" class="next-page">Load next page...</a>-->
-  <!--<div class="loading-indicator" style="display: none;"><div class="blockG" id="rotateG_01"></div><div class="blockG" id="rotateG_02"></div><div class="blockG" id="rotateG_03"></div><div class="blockG" id="rotateG_04"></div><div class="blockG" id="rotateG_05"></div><div class="blockG" id="rotateG_06"></div><div class="blockG" id="rotateG_07"></div><div class="blockG" id="rotateG_08"></div></div>-->
-<!--</div>-->
-<!--{% endif %}-->

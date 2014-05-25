@@ -17,7 +17,7 @@
         </h1>
         <ul class="info">
             <li class="updated_at">
-                <a href="<%= '/' + @wikipage.title + '?rev=list' %>">
+                <a href="<%= absolute_path(@wikipage.title) + '?rev=list' %>">
                     <time><%= @wikipage.updated_at %></time>
                 </a>
                 <% if @revision.nil? %>
@@ -58,6 +58,7 @@
         <% end %>
     </section>
     <% unless @wikipage.similar_pages.blank? %>
+    <div class="border-row"></div>
     <section class="similar_page">
         <h3>Similar page</h3>
         <ul>

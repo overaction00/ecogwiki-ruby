@@ -3,7 +3,8 @@ html, body {
     margin: 0;
     color: #444;
     font-size: 18px;
-    font-family: "Open Sans", "NanumGothic", "Malgun Gothic",  "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "NanumGothic", "Malgun Gothic", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.7em;
 }
 
 ul, ol {
@@ -30,6 +31,12 @@ a:hover {
     color: #CCC;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
     overflow: visible;
+}
+
+.border-row {
+    border-bottom: 1px solid #ccc;
+    margin: 2em 0 2em 0;
+    padding: 0;
 }
 
 .top-bar a {
@@ -83,7 +90,6 @@ a:hover {
 nav {
     margin: 2em 0 0 0;
     padding: 0;
-    line-height: 1em;
 }
 
 nav ul {
@@ -134,12 +140,22 @@ header .edit_menu {
     padding: 0;
 }
 
+article .body h1,
+article .body h2,
+article .body h3,
+article .body h4,
+article .body h5,
+article .body h6 {
+    line-height: 3em;
+}
+
 article .toc-section .toc {
     display: inline-block;
     border: 1px solid #cccccc;
     background-color: #F8F8F8;
     padding: 0.5em 1em;
     margin: 1.5em 0;
+    font-size: 85%;
 }
 
 article .toc-section .toc h1 {
@@ -151,26 +167,26 @@ article .toc-section .toc h1 {
 }
 
 article .body {
-    font-size: 16px;
+    font-size: 18px;
 }
 
 article .body h1 {
-    font-size: 2em;
-}
-article .body h2 {
-    font-size: 1.8em;
-}
-article .body h3 {
     font-size: 1.6em;
 }
+article .body h2 {
+    font-size: 1.55em;
+}
+article .body h3 {
+    font-size: 1.5em;
+}
 article .body h4 {
-    font-size: 1.4em;
+    font-size: 1.45em;
 }
 article .body h5 {
-    font-size: 1.2em;
+    font-size: 1.4em;
 }
 article .body h6 {
-    font-size: 1.0em;
+    font-size: 1.35em;
 }
 
 .editform {
@@ -187,8 +203,6 @@ article .body h6 {
     margin: 0.5em 0;
     padding: 0.5em;
     font-family: NanumGothicCoding, "Courier New", Courier, monospace;
-    font-size: 1em;
-    line-height: 1.5em;
 }
 
 .editform input.comment {
@@ -243,7 +257,7 @@ table.changes th {
 }
 
 table.changes td.updated {
-    width: 7em;
+    width: 15em;
     font-size: 0.75em;
 }
 
@@ -271,11 +285,36 @@ table.revisions th {
     text-align: left;
 }
 
+table.revisions td.updated {
+    width: 15em;
+    font-size: 0.75em;
+}
+
 table.revisions td.modified {
-    width: 7em;
+    width: 15em;
     font-size: 0.75em;
 }
 
 table.revisions .comment {
+    font-size: 0.75em;
     color: #888;
+}
+
+.preferencesform input.userpage_title {
+    margin: 10px 0;
+}
+
+.preferencesform .actions {
+    margin: 0.5em 0;
+}
+
+.preferencesform .actions input {
+    margin-right: 0.5em;
+}
+
+.infobox.message {
+    padding: 0.2em 1em;
+    margin: 1em 0;
+    background-color: #E9EDF5;
+    border: 1px solid #ccccff;
 }

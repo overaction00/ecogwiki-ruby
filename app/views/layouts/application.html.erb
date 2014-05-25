@@ -40,7 +40,7 @@
                     <a href="<%= sign_in_url %>">Login</a>
                 <% else %>
                     <span class="user-email"><%= current_user.email %></span>
-                    <a href="<%= sign_in_url %>" class="preferences">Preferences</a>
+                    <a href="/sp.preferences" class="preferences">Preferences</a>
                     <a href="<%= sign_out_url %>" id="logout" data-method='delete'>Logout</a>
                 <% end %>
             </li>
