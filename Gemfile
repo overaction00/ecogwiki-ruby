@@ -11,6 +11,7 @@ gem 'redcarpet'
 gem 'trie'
 gem 'murmurhash3'
 gem 'kaminari'
+gem 'sidekiq'
 
 # Gems used only for assets and not required
 # in production environments by default.

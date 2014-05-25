@@ -193,6 +193,11 @@ article .body h6 {
     margin: 2em 0;
 }
 
+article .body code {
+    font-size: 1.2em;
+    line-height: 2em;
+}
+
 .editform .CodeMirror {
     border: solid 1px #eeeeee;
 }
