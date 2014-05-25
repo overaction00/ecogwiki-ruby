@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140521141015) do
+ActiveRecord::Schema.define(:version => 20140525111315) do
 
   create_table "inverted_indices", :force => true do |t|
     t.string   "word"
@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(:version => 20140521141015) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "inverted_indices", ["page"], :name => "index_inverted_indices_on_page"
+  add_index "inverted_indices", ["word"], :name => "index_inverted_indices_on_word"
 
   create_table "old_wikipages", :force => true do |t|
     t.string   "title"
@@ -33,6 +36,10 @@ ActiveRecord::Schema.define(:version => 20140521141015) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "old_wikipages", ["modifier"], :name => "index_old_wikipages_on_modifier"
+  add_index "old_wikipages", ["title"], :name => "index_old_wikipages_on_title"
+  add_index "old_wikipages", ["user_id"], :name => "index_old_wikipages_on_user_id"
+
   create_table "preferences", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
@@ -41,13 +48,20 @@ ActiveRecord::Schema.define(:version => 20140521141015) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "related_pages", :force => true do |t|
+  add_index "preferences", ["email"], :name => "index_preferences_on_email"
+  add_index "preferences", ["title"], :name => "index_preferences_on_title"
+  add_index "preferences", ["user_id"], :name => "index_preferences_on_user_id"
+
+  create_table "similar_pages", :force => true do |t|
     t.integer  "wikipage_id"
     t.string   "title"
     t.float    "score"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "similar_pages", ["title"], :name => "index_similar_pages_on_title"
+  add_index "similar_pages", ["wikipage_id"], :name => "index_similar_pages_on_wikipage_id"
 
   create_table "social_auths", :force => true do |t|
     t.integer  "user_id"
@@ -59,6 +73,10 @@ ActiveRecord::Schema.define(:version => 20140521141015) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "social_auths", ["email"], :name => "index_social_auths_on_email"
+  add_index "social_auths", ["social_id"], :name => "index_social_auths_on_social_id"
+  add_index "social_auths", ["user_id"], :name => "index_social_auths_on_user_id"
+
   create_table "tocs", :force => true do |t|
     t.integer  "wikipage_id"
     t.string   "key"
@@ -68,6 +86,9 @@ ActiveRecord::Schema.define(:version => 20140521141015) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "tocs", ["title"], :name => "index_tocs_on_title"
+  add_index "tocs", ["wikipage_id"], :name => "index_tocs_on_wikipage_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -85,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20140521141015) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["id"], :name => "index_users_on_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "wikipages", :force => true do |t|
@@ -100,5 +122,9 @@ ActiveRecord::Schema.define(:version => 20140521141015) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "wikipages", ["modifier"], :name => "index_wikipages_on_modifier"
+  add_index "wikipages", ["title"], :name => "index_wikipages_on_title"
+  add_index "wikipages", ["user_id"], :name => "index_wikipages_on_user_id"
 
 end

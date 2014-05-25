@@ -1,6 +1,6 @@
-class CreateRelatedPages < ActiveRecord::Migration
+class CreateSimilarPages < ActiveRecord::Migration
   def change
-    create_table :related_pages do |t|
+    create_table :similar_pages do |t|
       t.integer :wikipage_id
       t.string :title
       t.float :score
