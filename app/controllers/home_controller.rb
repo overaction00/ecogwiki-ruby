@@ -31,11 +31,14 @@ class HomeController < ApplicationController
     title = params[:wikipage]
     body = params[:body]
     comment = params[:comment]
+    user_id = current_user.nil? ? nil : current_user.id
+    modifier = current_user.nil? ? nil : current_user.email
     @wikipage = Wikipage.find_by_title(title)
     if @wikipage.nil?
-      @wikipage = Wikipage.new({title: title, body: body, comment: comment})
-      @wikipage.fill_in_default(current_user)
-      @wikipage.revision += 1
+      @wikipage = Wikipage.new({title: title, body: body, comment: comment, user_id: user_id, modifier: modifier, revision: 1})
+      unless @wikipage.save
+        return render nothing: true, status: :internal_server_error
+      end
     elsif @wikipage.body != params[:body] or @wikipage.comment != params[:comment]
       Wikipage.transaction do
         @wikipage.update_wikipage(params, current_user)

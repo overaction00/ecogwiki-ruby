@@ -7,7 +7,7 @@
         <h1>
             <% titles = params[:wikipage].split(/\//); titles[0..-2].each_with_index do | item, index | %>
                 <span class="parent">
-                    <a href="<%= '/' + titles[0..index].join('/') %>"><%= titles[index] %></a>
+                    <a href="<%= '/' + titles[0..index].join('/') %>"><%= titles[index] %></a><span class="small"> >> </span>
                 </span>
             <% end %>
             <span><%= titles[-1] %></span>
@@ -17,15 +17,12 @@
         </h1>
         <ul class="info">
             <li class="updated_at">
-                <a href="<%= absolute_path(@wikipage.title) + '?rev=list' %>">
-                    <time><%= @wikipage.updated_at %></time>
-                </a>
-                <% if @revision.nil? %>
-                    (rev. <span class="revision"><%= @wikipage.revision %></span>)
-                <% else %>
-                    (rev. <span class="revision"><%= @revision.revision %></span>)
+                <time><%= @wikipage.updated_at %></time>
+                <% unless @wikipage.old_wikipages.nil? %>
+                    <a href="<%= absolute_path(@wikipage.title) + '?rev=list' %>">
+                        (rev. <span class="revision"><%= params[:rev] ? params[:rev] : @wikipage.revision %></span>)
+                    </a>
                 <% end %>
-
             </li>
             <% if admin?(current_user) || @wikipage.can_write?(current_user) %>
                 <% if @revision.nil? %>

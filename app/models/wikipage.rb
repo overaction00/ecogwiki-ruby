@@ -15,7 +15,8 @@ class Wikipage < ActiveRecord::Base
       self.user_id = user.id
       self.modifier = user.email
     end
-    self.revision = 0
+    self.revision = 1
+    self.save
   end
 
   def update_wikipage(params, user)
