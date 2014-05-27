@@ -5,8 +5,7 @@ class HomeController < ApplicationController
     # [] = generalize_url
     @wikipage = Wikipage.find_by_title(params[:wikipage])
     if @wikipage.nil?
-      @wikipage = Wikipage.new({title: params[:wikipage]})
-      @wikipage.fill_in_default(current_user)
+      @wikipage = Wikipage.new({title: params[:wikipage], revision: 0})
     end
 
     if params[:view] == 'edit'
