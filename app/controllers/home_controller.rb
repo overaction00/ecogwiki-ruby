@@ -12,7 +12,7 @@ class HomeController < ApplicationController
       return render 'home/edit'
     elsif params[:rev] == 'list'
       @revisions = @wikipage.nil? ? nil : @wikipage.old_wikipages.reorder('created_at desc').page(params[:page])
-      return render '/home/revisions'
+      return render '/home/revision'
     elsif !params[:rev].nil? && params[:rev].numeric?
       return redirect_to '/' + params[:wikipage] if @wikipage.nil?
 
