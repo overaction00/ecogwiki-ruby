@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def markdown_to_html(text)
+    return ''.html_safe if text.nil?
     options = {
         :autolink => true,
         :space_after_headers => true,
