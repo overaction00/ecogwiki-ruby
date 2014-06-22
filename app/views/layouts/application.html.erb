@@ -6,7 +6,7 @@
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
 </head>
-<body>
+<body data-controller="<%= params[:controller]%>" data-action="<%= params[:action] %>" data-view="<%= params[:view] %>">
     <div style="display: none;"><a href="#skip">Skip to content</a></div>
     <!--[if lt IE 9]>
     <h1>You Must Upgrade Your Browser</h1>
@@ -58,5 +58,6 @@
 </div>
 <input type="hidden" name="facebook-id" data-facebook-id="<%= facebook_id %>">
 <div id="fb-root"></div>
+<%= debug(params) if Rails.env.development? %>
 </body>
 </html>

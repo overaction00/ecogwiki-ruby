@@ -9,10 +9,10 @@ class HomeController < ApplicationController
     end
 
     if params[:view] == 'edit'
-      return render 'home/update'
+      return render 'home/edit'
     elsif params[:rev] == 'list'
       @revisions = @wikipage.nil? ? nil : @wikipage.old_wikipages.reorder('created_at desc').page(params[:page])
-      return render '/home/show_rev'
+      return render '/home/revisions'
     elsif !params[:rev].nil? && params[:rev].numeric?
       return redirect_to '/' + params[:wikipage] if @wikipage.nil?
 
@@ -23,7 +23,7 @@ class HomeController < ApplicationController
       @revision = @wikipage.old_wikipages.where(revision: params[:rev].to_i).first
     end
 
-    render 'home/show'
+    render 'home/wikipage/wikipage_layout'
   end
 
   def write_handler

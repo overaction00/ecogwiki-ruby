@@ -1,0 +1,9 @@
+<% unless @wikipage.similar_pages.blank? %>
+<div class="border-row"></div>
+<h3>Similar page</h3>
+<ul>
+    <% @wikipage.similar_pages.each do |similar_page| %>
+        <li class="wikipage"><a href="<%= absolute_path(similar_page.title) %>"><%= similar_page.title  %></a></li>
+    <% end %>
+</ul>
+<% end %>

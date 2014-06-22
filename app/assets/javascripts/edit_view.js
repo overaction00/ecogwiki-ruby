@@ -1,10 +1,24 @@
+function isEditPage() {
+    var $body = $("body");
+    return $body.data("controller") === "home" &&
+        $body.data("action") === "page_handler" &&
+        $body.data("view") === "edit"
+}
+
 $(document).ready(function() {
+    if (isEditPage()) {
+        initEditPage();
+    }
+});
+
+function initEditPage() {
     var textArea = document.querySelector('.editform textarea');
     var cm = CodeMirror.fromTextArea(textArea, {
         lineNumbers: true,
         autofocus: true,
         mode: "markdown"
     });
+    cm.setSize(null, $(window).height() * 0.55);
     $("form .actions .btn-preview").click(function(e) {
         e.stopPropagation();
         e.preventDefault();
@@ -39,4 +53,7 @@ $(document).ready(function() {
             }
         });
     });
-});
+}
+
+
+

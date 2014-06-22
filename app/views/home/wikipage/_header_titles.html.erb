@@ -1,0 +1,7 @@
+<% titles = params[:wikipage].split(/\//); titles[0..-2].each_with_index do | item, index | %>
+<span class="parent">
+    <a href="<%= '/' + titles[0..index].join('/') %>"><%= titles[index] %></a><span class="small"> >> </span>
+</span>
+<% end %>
+<span><%= titles[-1] %></span>
+<a id="top" href="#top" class="caret-target vcaret">#</a>

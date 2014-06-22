@@ -16,3 +16,9 @@
 //= require cookie-parser
 //= require underscore
 //= require bootstrap-3.3.1/bootstrap
+//= require common
+//= require edit_view
+//= require wikipage
+//= require codemirror/codemirror
+//= require codemirror/markdown
+//= require highlightjs/highlight.pack

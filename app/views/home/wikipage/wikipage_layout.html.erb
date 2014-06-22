@@ -1,0 +1,41 @@
+<article>
+    <header>
+        <h1>
+            <%= render partial: 'home/wikipage/header_titles' %>
+            <a href="<%= searches_path + '?q=' + @wikipage.title %>" class="search-by-title"><small>Find similar titles</small></a>
+        </h1>
+        <ul class="info">
+            <li class="updated_at">
+                <% unless @wikipage.updated_at.nil? %>
+                <span>Last modified at : <time><%= @wikipage.updated_at %></time></span>
+                <% end %>
+
+                <% unless @wikipage.old_wikipages.nil? %>
+                <a href="<%= absolute_path(@wikipage.title) + '?rev=list' %>">
+                    (rev. <span class="revision"><%= params[:rev] ? params[:rev] : @wikipage.revision %></span>)
+                </a>
+                <% end %>
+            </li>
+            <% if admin?(current_user) || @wikipage.can_write?(current_user) %>
+                <% if @revision.nil? %>
+                    <li class="edit_menu">
+                        <a href="<%= absolute_path(params[:wikipage]) %>?view=edit" id="edit" class='btn btn-primary'>Edit</a>
+                    </li>
+                <% end %>
+            <% end %>
+        </ul>
+    </header>
+    <% unless @wikipage.tocs.nil? or @wikipage.tocs.blank? %>
+        <section class="toc-section">
+            <%= generate_toc_html(@wikipage) %>
+        </section>
+    <% end %>
+    <section class="body">
+        <%= render partial: 'home/wikipage/section_body' %>
+    </section>
+
+    <section class="similar_page">
+        <%= render partial: 'home/wikipage/section_similar_page' %>
+    </section>
+</article>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
