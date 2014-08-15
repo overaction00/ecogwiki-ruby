@@ -18,3 +18,8 @@
 # Ignore private setting
 /config/ecogwiki.yml
 /Gemfile.lock
+
+
+
+# Ignore routes file
+routes
