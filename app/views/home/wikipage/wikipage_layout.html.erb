@@ -10,7 +10,7 @@
                 <span>Last modified at : <time><%= @wikipage.updated_at %></time></span>
                 <% end %>
 
-                <% unless @wikipage.old_wikipages.nil? %>
+                <% unless @wikipage.revisions.nil? %>
                 <a href="<%= absolute_path(@wikipage.title) + '?rev=list' %>">
                     (rev. <span class="revision"><%= params[:rev] ? params[:rev] : @wikipage.revision %></span>)
                 </a>

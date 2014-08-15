@@ -2,43 +2,50 @@ class HomeController < ApplicationController
   before_filter :authenticate_user!, :only => [:write_handler, :remove_handler, :save_sp_preferences]
 
   def page_handler
-    # [] = generalize_url
     @wikipage = Wikipage.find_by_title(params[:wikipage])
     if @wikipage.nil?
       @wikipage = Wikipage.new({title: params[:wikipage], revision: 0})
     end
 
-    if params[:view] == 'edit'
-      return render 'home/edit'
-    elsif params[:rev] == 'list'
-      @revisions = @wikipage.nil? ? nil : @wikipage.old_wikipages.reorder('created_at desc').page(params[:page])
-      return render '/home/revision_list'
-    elsif !params[:rev].nil? && params[:rev].numeric?
-      return redirect_to '/' + params[:wikipage] if @wikipage.nil?
-
-      if @wikipage.revision < params[:rev].to_i
-        return redirect_to '/' + params[:wikipage] + '?rev=' + @wikipage.revision.to_s
+    unless params[:action].nil?
+      case params[:action]
+        when 'edit'
+          return render 'home/edit'
+        when 'history'
+          @revisions = @wikipage.revisions.reorder('created_at desc').page(params[:page])
+          return render '/home/revision_history'
+        when 'setting'
+        when 'revision'
+          @revision = @wikipage.revision.where(revision: params[:id].to_i).first
+          return render 'home/wikipage/wikipage_layout'
+        else
+          return render 'home/wikipage/wikipage_layout'
       end
-
-      @revision = @wikipage.old_wikipages.where(revision: params[:rev].to_i).first
     end
-
     render 'home/wikipage/wikipage_layout'
   end
 
   def write_handler
+    # 빈 페이지 일 경우 페이지를 생성한다.
+
+    # 페이지를 생성하기 전 validation 체크를 한다.
+
+    # validation 체크 후 문제가 없다면 revision 을 생성한다. (before_save)
+
+    # 저장 후에는 수정을 마친 페이지로 redirection 한다.
     title = params[:wikipage]
     body = params[:body]
     comment = params[:comment]
     user_id = current_user.nil? ? nil : current_user.id
     modifier = current_user.nil? ? nil : current_user.email
+
     @wikipage = Wikipage.find_by_title(title)
     if @wikipage.nil?
       @wikipage = Wikipage.new({title: title, body: body, comment: comment, user_id: user_id, modifier: modifier, revision: 1})
       unless @wikipage.save
         return render nothing: true, status: :internal_server_error
       end
-    elsif @wikipage.body != params[:body] or @wikipage.comment != params[:comment]
+    elsif @wikipage.body != params[:body] || @wikipage.comment != params[:comment]
       Wikipage.transaction do
         @wikipage.update_wikipage(params, current_user)
       end
@@ -64,19 +71,19 @@ class HomeController < ApplicationController
     redirect_to '/Home'
   end
 
-  def sp_changes
+  def changes
     @wikipages = Wikipage.limit(10).reorder('updated_at desc')
-    render 'home/sp_changes'
+    render 'home/changes'
   end
 
-  def sp_searches
+  def searches
     @words = InvertedIndex.where("word = '#{params[:q]}'")
-    render 'home/sp_searches'
+    render 'home/searches'
   end
 
-  def sp_preferences
+  def preference
     @preference = current_user.preference
-    render 'home/sp_preferences'
+    render 'home/preference'
   end
 
   def save_sp_preferences
@@ -86,13 +93,18 @@ class HomeController < ApplicationController
     p.title = title
     p.email = current_user.email
     if p.save
-      return redirect_to '/sp.preferences'
+      return redirect_to preference_path
     end
     render nothing: true, status: :internal_server_error
   end
 
   def sp_markdown
     render text: markdown_to_html(params[:text]), status: :ok
+  end
+
+  private
+  def generalize_url
+
   end
 
 end

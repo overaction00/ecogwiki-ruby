@@ -5,7 +5,7 @@ class Wikipage < ActiveRecord::Base
                   :modifier, :comment, :acl_read, :acl_write, :link_id
 
   has_many :tocs
-  has_many :old_wikipages
+  has_many :revisions
   has_many :similar_pages
 
   belongs_to :user
@@ -20,24 +20,49 @@ class Wikipage < ActiveRecord::Base
   end
 
   def update_wikipage(params, user)
-    old_wikipage = self.old_wikipages.new
-    old_wikipage.title = self.title
-    old_wikipage.body = self.body
-    old_wikipage.revision = self.revision
-    old_wikipage.user_id = self.user_id
-    old_wikipage.modifier = self.modifier
-    old_wikipage.comment = self.comment
-    old_wikipage.save
-    self.body = params[:body] unless self.body == params[:body]
-    self.comment = params[:comment] unless self.comment == params[:body]
+    if params[:body].blank? || self.body == params[:body]
+      return false
+    end
+    self.body = params[:body]
+    self.comment = params[:comment] unless self.comment == params[:comment]
     self.modifier = user.email
     self.revision += 1
-    self.save
-    self.create_toc
+    unless self.save
+      return false
+    end
+    self.generate_toc
   end
 
+  def can_write?(user)
+    return false if user.nil?
+    if self.acl_write.nil?
+      return false
+    end
+    acls = self.acl_write.split(',')
+    acls.include?(user.email) || acls.include?('all')
+  end
 
-  def create_toc
+  def user_preference
+    Preference.find_by_email(self.modifier)
+  end
+
+  def before_save
+    revision = self.revisions.new
+    revision.title = self.title
+    revision.body = self.body
+    revision.revision = self.revision
+    revision.user_id = self.user_id
+    revision.modifier = self.modifier
+    revision.comment = self.comment
+    revision.save
+  end
+
+  private
+  def make_header_key(s)
+    MurmurHash3::Native128.murmur3_128_str_hash(s).pack('L*').unpack('H*').first
+  end
+
+  def generate_toc
     body = self.body
 
     self.tocs.each {|t| t.destroy } unless self.tocs.nil?
@@ -64,30 +89,11 @@ class Wikipage < ActiveRecord::Base
       order = current_order
       toc = self.tocs.build({key: key, title: title, depth: depth, order: order})
       unless toc.save
-        false
+        return false
       end
       current_order += 1
     end
     true
   end
-
-  def can_write?(user)
-    return false if user.nil?
-    if self.acl_write.nil?
-      return false
-    end
-    acls = self.acl_write.split(',')
-    acls.include?(user.email) || acls.include?('all')
-  end
-
-  def user_preference
-    Preference.find_by_email(self.modifier)
-  end
-
-  private
-  def make_header_key(s)
-    MurmurHash3::Native128.murmur3_128_str_hash(s).pack('L*').unpack('H*').first
-  end
-
 
 end

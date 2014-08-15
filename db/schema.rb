@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140525111315) do
+ActiveRecord::Schema.define(:version => 20140713063721) do
 
   create_table "inverted_indices", :force => true do |t|
     t.string   "word"
@@ -24,22 +24,6 @@ ActiveRecord::Schema.define(:version => 20140525111315) do
   add_index "inverted_indices", ["page"], :name => "index_inverted_indices_on_page"
   add_index "inverted_indices", ["word"], :name => "index_inverted_indices_on_word"
 
-  create_table "old_wikipages", :force => true do |t|
-    t.string   "title"
-    t.string   "body"
-    t.integer  "revision"
-    t.integer  "user_id"
-    t.string   "comment"
-    t.string   "modifier"
-    t.integer  "wikipage_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "old_wikipages", ["modifier"], :name => "index_old_wikipages_on_modifier"
-  add_index "old_wikipages", ["title"], :name => "index_old_wikipages_on_title"
-  add_index "old_wikipages", ["user_id"], :name => "index_old_wikipages_on_user_id"
-
   create_table "preferences", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
@@ -51,6 +35,22 @@ ActiveRecord::Schema.define(:version => 20140525111315) do
   add_index "preferences", ["email"], :name => "index_preferences_on_email"
   add_index "preferences", ["title"], :name => "index_preferences_on_title"
   add_index "preferences", ["user_id"], :name => "index_preferences_on_user_id"
+
+  create_table "revisions", :force => true do |t|
+    t.string   "title"
+    t.string   "body"
+    t.integer  "revision"
+    t.integer  "user_id"
+    t.string   "comment"
+    t.string   "modifier"
+    t.integer  "wikipage_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "revisions", ["modifier"], :name => "index_old_wikipages_on_modifier"
+  add_index "revisions", ["title"], :name => "index_old_wikipages_on_title"
+  add_index "revisions", ["user_id"], :name => "index_old_wikipages_on_user_id"
 
   create_table "similar_pages", :force => true do |t|
     t.integer  "wikipage_id"

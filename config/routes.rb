@@ -2,17 +2,18 @@ EcogwikiRuby::Application.routes.draw do
 
   devise_for :users, skip: [:sessions, :passwords, :registrations]
   devise_scope :user do
-    get 'sp.sign_in', to: 'users/sessions#new', as: 'sign_in'
-    post 'sp.sign_in', to: 'users/sessions#create', as: 'sign_in'
-    delete 'sp.sign_out', to: 'users/sessions#destroy', as: 'sign_out'
+    get '/sign_in', to: 'users/sessions#new', as: 'sign_in'
+    post '/sign_in', to: 'users/sessions#create', as: 'sign_in'
+    delete '/sign_out', to: 'users/sessions#destroy', as: 'sign_out'
   end
 
-  match '/sp.changes', to: 'home#sp_changes'
-  post '/sp.markdown', to: 'home#sp_markdown'
-  get '/sp.searches', to: 'home#sp_searches', as: 'searches'
-  get '/sp.preferences', to: 'home#sp_preferences'
-  post '/sp.preferences', to: 'home#save_sp_preferences'
-  get '*wikipage', to: 'home#page_handler', wikipage: /.+/
+  get '/changes', to: 'home#sp_changes', as: 'changes'
+  get '/searches', to: 'home#sp_searches', as: 'searches'
+  get '/preference', to: 'home#sp_preferences', as: 'preference'
+  post '/preferences', to: 'home#save_sp_preferences', as: 'preference'
+  post '/helper/markdown', to: 'home#sp_markdown', as: 'helper_markdown'
+
+  get '*wikipage', to: 'home#page_handler', as: 'wikipage', wikipage: /.+/
   post '*wikipage', to: 'home#write_handler', wikipage: /.+/
   put '*wikipage', to: 'home#update_handler', wikipage: /.+/
   delete '*wikipage', to: 'home#remove_handler', wikipage: /.+/
